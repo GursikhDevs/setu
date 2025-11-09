@@ -1,6 +1,6 @@
 // Departments you support
 export const DEPARTMENTS = [
-  "CS",
+  "Computer Science",
   "Medical",
   "Business",
   "Mechanical",
