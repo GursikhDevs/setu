@@ -6,6 +6,7 @@ export const DEPARTMENTS = [
   "Mechanical",
   "Electronics",
   "Arts",
+  "Hotel Management",
   "Other",
 ];
 

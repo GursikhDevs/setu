@@ -36,8 +36,23 @@ const userSchema=new mongoose.Schema({
     type:[String],
     default:[],
    },
+    address: {
+      pincode: { type: String, default: "" },
+      district: { type: String, default: "" },
+      state: { type: String, default: "" },
+    },
 },
 {timestamps:true}
 );
+
+// Virtual relation to AlumniProfile (optional)
+userSchema.virtual("alumniProfile", {
+  ref: "AlumniProfile",
+  localField: "_id",
+  foreignField: "user",
+  justOne: true, // 1:1
+});
+
+
 
 export default mongoose.model("User",userSchema);

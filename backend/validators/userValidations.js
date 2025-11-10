@@ -58,4 +58,12 @@ export const updateProfileSchema = z.object({
 
   // still restrict role (only student/alumni)
   role: clientRoleSchema.optional(),
+   address: z
+    .object({
+      pincode: z.string().optional().default(""),
+      district: z.string().optional().default(""),
+      state: z.string().optional().default(""),
+    })
+    .optional()
+    .default({ pincode: "", district: "", state: "" }),
 });

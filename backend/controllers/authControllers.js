@@ -3,6 +3,7 @@ import argon2 from "argon2";
 import jwt from "jsonwebtoken";
 import {registerSchema} from "../validators/userValidations.js";
 
+const jwtSecret=process.env.JWT_SECRET;
 export const signup = async (req, res) => {
   try {
     // console.log("hitted");
@@ -10,6 +11,10 @@ export const signup = async (req, res) => {
     
     
     const result=registerSchema.safeParse(req.body);
+    if (!result.success) {
+  const firstError = result.error.issues?.[0]?.message;
+  return res.status(401).json({ flash: "invalid inputs", err: firstError });
+}
     if(!result){
       const firstError=result.error.issues?.[0].message;
     return req.status(401).json({flash:"invalid inputs",err:firstError});
@@ -56,11 +61,11 @@ export const login = async (req, res) => {
       name: user.userName,
     };
     
-    const token = jwt.sign(payload, process.env.JWT_SECRET, {
+    const token = jwt.sign(payload, jwtSecret, {
       expiresIn: "1d",
     });
 
-    res.cookie("token", token, {
+    res.cookie("access_token", token, {
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000, 
     });

@@ -1,15 +1,15 @@
                 //   OM namah sivay
+                import 'dotenv/config';
 import express from "express";
 import http from "http";
-import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import connectDB from "./config/db.js";
 
 //routes imports
 import authRoutes from "./routes/authRoutes.js";
+import alumniRoutes from "./routes/alumniRoutes.js";
 
-dotenv.config();
 
 
 const app=express();
@@ -23,6 +23,7 @@ app.use(cors({
 
 //routes
 app.use("/auth",authRoutes);
+app.use("/alumni",alumniRoutes);
 
 
 
@@ -35,6 +36,7 @@ connectDB();  //db connection
 const PORT = process.env.PORT||4000;
 server.listen(PORT,()=>{
     console.log(`Server started at PORT ${PORT}`);
+    //  console.log("JWT_SECRET length:", process.env.JWT_SECRET?.length ?? "undefined");
 });
 
 
