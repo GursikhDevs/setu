@@ -4,8 +4,8 @@ const jwtSecret=process.env.JWT_SECRET;
 
 
 export const authenticateUser=async(req,res,next)=>{
-    console.log(jwtSecret);
-    console.log("auth middle ware m aa gya1");
+    // console.log(jwtSecret);
+    // console.log("auth middle ware m aa gya1");
     const auth = req.headers.authorization || "";
     const fromHeader = auth.startsWith("Bearer ") ? auth.split(" ")[1] : null;
     const fromCookie = req.cookies?.access_token || req.cookies?.token || req.cookies?.jwt;
@@ -18,8 +18,8 @@ if(!token){
     return res.status(401).json({message:"Authorization token missing."});
 }
 try{
-    console.log("auth middle ware m aa gya");
-    console.log(token);
+    // console.log("auth middle ware m aa gya");
+    // console.log(token);
     const decoded=jwt.verify(token,jwtSecret);
     const user=await User.findById(decoded.ID);
     if(!user){

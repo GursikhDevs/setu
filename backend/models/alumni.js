@@ -33,6 +33,13 @@ const AlumniProfileSchema=new mongoose.Schema({
 AlumniProfileSchema.index({ jobTitle: 1 });
 AlumniProfileSchema.index({ industry: 1 });
 AlumniProfileSchema.index({ skills: 1 });
+AlumniProfileSchema.index({
+  jobArea: 1,
+  availableForMentorship: -1,
+  yearsOfExperience: -1,
+  createdAt: -1,
+});
+
 
 
 

@@ -9,7 +9,7 @@ import connectDB from "./config/db.js";
 //routes imports
 import authRoutes from "./routes/authRoutes.js";
 import alumniRoutes from "./routes/alumniRoutes.js";
-
+import suggestionRoutes from "./routes/suggestionRoutes.js";
 
 
 const app=express();
@@ -24,6 +24,7 @@ app.use(cors({
 //routes
 app.use("/auth",authRoutes);
 app.use("/alumni",alumniRoutes);
+app.use("/suggestion",suggestionRoutes);
 
 
 
