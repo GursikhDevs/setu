@@ -2,6 +2,7 @@
                 import 'dotenv/config';
 import express from "express";
 import http from "http";
+import { initSockets } from "./sockets/socketSetup.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import connectDB from "./config/db.js";
@@ -10,9 +11,17 @@ import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import alumniRoutes from "./routes/alumniRoutes.js";
 import suggestionRoutes from "./routes/suggestionRoutes.js";
+import connectionRoutes from "./routes/connectionRoutes.js"
+import messageRoutes from "./routes/messagesRoutes.js";
 
 
 const app=express();
+await connectDB();  //db connection 
+const server=http.createServer(app);
+const io = initSockets(server);
+
+//make io availabe in controllers via req.io
+app.use((req, _res, next) => { req.io = io; next();});
 //middlewares
 app.use(express.json());
 app.use(cookieParser());
@@ -25,12 +34,9 @@ app.use(cors({
 app.use("/auth",authRoutes);
 app.use("/alumni",alumniRoutes);
 app.use("/suggestion",suggestionRoutes);
+app.use("/connection",connectionRoutes);
+app.use("/chat",messageRoutes);
 
-
-
-const server=http.createServer(app);
-
-connectDB();  //db connection 
 
 
 //starting server 

@@ -41,6 +41,9 @@ const userSchema=new mongoose.Schema({
       district: { type: String, default: "" },
       state: { type: String, default: "" },
     },
+        counts: {
+  connections: { type: Number, default: 0 }
+},
 },
 {timestamps:true}
 );
