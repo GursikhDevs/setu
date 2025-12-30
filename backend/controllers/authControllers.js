@@ -2,7 +2,8 @@ import User from "../models/user.js";
 import argon2 from "argon2";
 import jwt from "jsonwebtoken";
 import {registerSchema} from "../validators/userValidations.js";
-
+import { cloudinary } from "../config/cloudinary.js";
+import fs from "fs";
 const jwtSecret=process.env.JWT_SECRET;
 export const signup = async (req, res) => {
   try {
@@ -93,4 +94,45 @@ export const login = async (req, res) => {
 export const logout = (req, res) => {
   res.clearCookie("token");
   res.json({ message: "Logout successful" });
+};
+
+export const updateProfilePicture = async (req, res) => {
+  try {
+    const userId = req.params.userId.trim();
+
+    console.log(userId)
+
+    if (!req.file) return res.status(400).json({ error: "Image is required" });
+   console.log(req.file)
+    // Find user in DB
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    // Delete old image from Cloudinary if exists
+    if (user.profileImg) {
+      const parts = user.profileImg.split("/");
+      const publicIdWithExt = parts[parts.length - 1];
+      const publicId = `avatars/${publicIdWithExt.split(".")[0]}`;
+      await cloudinary.uploader.destroy(publicId);
+    }
+
+    // Upload new image to Cloudinary
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: "avatars",
+    });
+
+    // Remove local file
+    fs.unlinkSync(req.file.path);
+
+    // Update user's profile image URL in DB
+    user.profileImg = result.secure_url;
+    await user.save();
+    console.log(user.profileImg);
+
+    res.status(200).json({ message: "Profile picture updated", user });
+  } catch (err) {
+    if (req.file && fs.existsSync(req.file.path)) fs.unlinkSync(req.file.path);
+    console.log(err.message);
+    res.status(500).json({ error: err.message });
+  }
 };
