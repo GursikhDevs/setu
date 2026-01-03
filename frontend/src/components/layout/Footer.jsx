@@ -70,7 +70,7 @@ const Footer = () => {
         {/* Join Us Button */}
         <button
           onClick={handleJoinUs}
-          className="bg-secondary-color cursor-pointer hover:bg-orange-500 text-white-color font-bold text-xl px-14 py-3 rounded-lg transition-colors duration-300"
+          className="join-us-btn relative bg-secondary-color cursor-pointer hover:bg-orange-500 text-white-color font-bold text-xl px-14 py-3 rounded-lg transition-colors duration-300 sd:px-8 sd:py-2"
         >
           JOIN US
         </button>
@@ -78,7 +78,7 @@ const Footer = () => {
 
 
       {/* Main Footer Content */}
-      <div className="clip-path bg-secondary-color px-8 pt-20 pb-8">
+      <div className="clip-mobile md:clip-tablet lg:clip-desktop bg-secondary-color px-8 pt-20 pb-8">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-20">
           
           {/* Left Column - Logo and Social Media */}
@@ -140,7 +140,7 @@ const Footer = () => {
                   onClick={() => handleNavClick(
                         item.toLowerCase().trim().replace(/\s+/g, "-").replace(/\//g, "-")
                     )}
-                  className="block cursor-pointer text-white-color text-md hover:text-permanent-main-color transition-colors duration-300"
+                  className="w-fit block cursor-pointer text-white-color text-md hover:text-permanent-main-color transition-colors duration-300"
                 >
                   {item}
                 </div>
@@ -157,7 +157,7 @@ const Footer = () => {
                   onClick={() => handleNavClick(
                         item.toLowerCase().trim().replace(/\s+/g, "-").replace(/\//g, "-") 
                     )}
-                  className="block cursor-pointer text-white-color text-md hover:text-permanent-main-color transition-colors duration-300"
+                  className="w-fit block cursor-pointer text-white-color text-md hover:text-permanent-main-color transition-colors duration-300"
                 >
                   {item}
                 </div>

@@ -70,13 +70,31 @@
   color: var(--color-secondary-color);
 }
 
-body{
-  background-color: #000;
-  
+html, body{
+  background-color: var(--color-main-color);
+  overflow-x: hidden;
+  font-family: var(--font-Bebas);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
-.clip-path{
-  clip-path: polygon(0 0, 100% 15%, 100% 100%, 0% 100%);
+/* default – mobile */
+.clip-mobile {
+  clip-path: polygon(0 0, 100% 6%, 100% 100%, 0% 100%);
+}
+
+/* tablet */
+@media (min-width: 768px) {
+  .clip-tablet {
+    clip-path: polygon(0 0, 100% 12%, 100% 100%, 0% 100%);
+  }
+}
+
+/* desktop */
+@media (min-width: 1024px) {
+  .clip-desktop {
+    clip-path: polygon(0 0, 100% 15%, 100% 100%, 0% 100%);
+  }
 }
 
 /* Floating animation in background of login and register page*/
@@ -107,12 +125,42 @@ body{
 }
 
 .bg-image{
-  background-image: url(/public/images/bg-gif2.gif);
+  background-image: url(/images/bg-gif2.gif);
   background-size: cover;
   background-position: center;
   color: transparent;
   background-clip: text;
 }
+
+.join-us-btn::after{
+  content: "";
+  position: absolute;
+  top: -10%;
+  right: -50%;
+  background-image: url(/images/cat-gif.gif);
+  background-size: cover;
+  background-position: center;
+  width: 60%;
+  height: 300%;
+  background-color: transparent;
+  user-select: none;
+}
+
+
+/***** landing page css start *****/ 
+
+.hero:before{
+  content: "";
+  position: absolute;
+  top:50%;
+  left: 33%;
+  width: 38%;
+  height: 3%;
+  background-color: var(--color-theme-white);
+  user-select: none;
+}
+
+/***** landing page css End *****/
 
 
 /* 

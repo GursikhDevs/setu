@@ -18,8 +18,8 @@ export default function Navbar() {
   );
 
   return (
-    <>
-      <nav className="bg-transparent shadow-md relative z-50">
+    <header className='flex justify-center'>
+      <nav className="shadow-md fixed bg-main-color z-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
@@ -112,6 +112,6 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-    </>
+    </header>
   );
 }
