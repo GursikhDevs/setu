@@ -5,7 +5,7 @@ import { upsertAlumniProfileSchema } from "../validators/alumniValidations.js";
 
 export const upsertMyAlumniProfile = async (req, res) => {
   try {
-    console.log("yha tk aa gya");
+    // console.log("yha tk aa gya");
     
     // Only alumni can upsert alumni profile
     console.log(req.user);

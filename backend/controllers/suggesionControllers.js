@@ -71,6 +71,8 @@ const skip = (page -1) * limit;
 
 // now lgao aggregation pipeline or lao data
 const result = await AlumniProfile.aggregate(pipeline);
+// console.log(result[0]);
+
  const suggestions = result?.[0]?.data ?? [];
     const total = result?.[0]?.meta?.[0]?.total ?? 0;
 

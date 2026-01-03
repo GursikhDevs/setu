@@ -1,0 +1,186 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Bebas_Neue';
+  src: url('/fonts/Bebas_Neue/BebasNeue-Regular.woff2') format('woff2');
+  font-weight: 100 900; /* All weights from 100 to 900 */
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Exo_2';
+  src: url('/fonts/Exo_2/Exo2-VariableFont_wght.woff2') format('woff2');
+  font-weight: 100 900; /* This file handles 600-900 */
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Urbanist';
+  src: url('/fonts/Urbanist/Urbanist-VariableFont_wght.woff2') format('woff2');
+  font-weight: 100 900; /* This file handles 600-900 */
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Define your custom theme */
+@theme {
+  /*? Custom Colors */
+  /* Main colors */
+  --color-main-color: #094944;
+  --color-secondary-color: #EA8B62;
+  --color-white-color: #F9FAFB;
+  --color-green-color: #60BD81;
+
+  /* complementary color */
+  --color-forest-green-900: #094944;
+  --color-forest-green-600: #0F766E;
+  --color-yellow: #FCD34D;
+  --color-light-yellow: #FCF1C5 ;
+  --color-gray-dark: #101828;
+  --color-gray-medium: #4a5565;
+  --color-gray-light: #e5e7eb;
+  --color-indigo-light: #4f39f6;
+  --color-indigo-dark: #432dd7;
+  --color-permanent-main-color: #094944;
+
+  /* color can be changed in theme dark/light */
+  --color-theme-white: #F9FAFB;
+
+  /* Custom Fonts */
+  --font-Bebas: 'Bebas_Neue','Urbanist', system-ui, sans-serif;
+  --font-Exo: 'Exo_2','Urbanist' , sans-serif;
+  --font-Urbanist: 'Urbanist', monospace, sans-serif;
+  
+  /* Custom Font Sizes */
+  /* --font-size-xxs: 0.625rem;
+  --font-size-huge: 5rem; */
+  
+  /* Custom Spacing */
+  /* --spacing-128: 32rem; */
+  
+  /* Custom Border Radius */
+  /* --radius-4xl: 2rem; */
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}
+::selection {
+  background-color: var(--color-white-color);
+  color: var(--color-secondary-color);
+}
+
+body{
+  background-color: #000;
+  
+}
+
+.clip-path{
+  clip-path: polygon(0 0, 100% 15%, 100% 100%, 0% 100%);
+}
+
+/* Floating animation in background of login and register page*/
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
+}
+@keyframes float-reverse {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(20px) rotate(-5deg); }
+}
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Infinite animation for marquee */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
+.bg-image{
+  background-image: url(/public/images/bg-gif2.gif);
+  background-size: cover;
+  background-position: center;
+  color: transparent;
+  background-clip: text;
+}
+
+
+/* 
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+} */
