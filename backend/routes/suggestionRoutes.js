@@ -1,9 +1,10 @@
 import { Router } from "express";
-import { alumniSuggestionList } from "../controllers/suggesionControllers.js";
+import { alumniSuggestionList, publicAlumniSuggestionList } from "../controllers/suggesionControllers.js";
 import { authenticateUser } from "../middleware/jwtAuthMiddleware.js"; 
 
 const router = Router();
 
 router.get("/suggestAlumni",authenticateUser,alumniSuggestionList);
+router.get("/publicAlumni",publicAlumniSuggestionList);
 
 export default router;

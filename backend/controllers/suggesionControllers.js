@@ -91,3 +91,86 @@ const result = await AlumniProfile.aggregate(pipeline);
         res.status(500).json({message:"Server Error",err});
     }
 }
+
+
+
+
+//without login alumni suggestion list
+export const publicAlumniSuggestionList = async (req, res) => {
+  try {
+    const page = Math.max(parseInt(req.query.page ?? "1", 10), 1);
+    const limit = Math.min(Math.max(parseInt(req.query.limit ?? "10", 10), 1), 50);
+    const skip = (page - 1) * limit;
+
+    // Aggregation pipeline
+    const pipeline = [
+      // 1️⃣ Randomize alumni
+      { $sample: { size: skip + limit } },
+
+      // 2️⃣ Join user data (1:1)
+      {
+        $lookup: {
+          from: "users",
+          let: { uid: "$user" },
+          pipeline: [
+            { $match: { $expr: { $eq: ["$_id", "$$uid"] } } },
+            { $project: { _id: 1, userName: 1, profileImg: 1 } },
+          ],
+          as: "userDoc",
+        },
+      },
+
+      // 3️⃣ Unwind joined user
+      { $unwind: "$userDoc" },
+
+      // 4️⃣ Optional sorting (after randomness)
+      {
+        $sort: {
+          availableForMentorship: -1,
+          yearsOfExperience: -1,
+          createdAt: -1,
+        },
+      },
+
+      // 5️⃣ Facet for pagination + total
+      {
+        $facet: {
+          data: [
+            { $skip: skip },
+            { $limit: limit },
+            {
+              $project: {
+                _id: 1,
+                company: 1,
+                jobTitle: 1,
+                availableForMentorship: 1,
+                user: {
+                  _id: "$userDoc._id",
+                  userName: "$userDoc.userName",
+                  profileImg: "$userDoc.profileImg",
+                },
+              },
+            },
+          ],
+          meta: [{ $count: "total" }],
+        },
+      },
+    ];
+
+    const result = await AlumniProfile.aggregate(pipeline);
+
+    const suggestions = result?.[0]?.data ?? [];
+    const total = result?.[0]?.meta?.[0]?.total ?? 0;
+
+    return res.json({
+      page,
+      limit,
+      total,
+      hasNextPage: skip + suggestions.length < total,
+      suggestions,
+    });
+  } catch (err) {
+    console.error("publicAlumniSuggestionList error:", err);
+    return res.status(500).json({ message: "Server Error", err });
+  }
+};
