@@ -5,8 +5,8 @@ const Hero = () => {
     <section className='max-w-6xl mx-auto h-dvh xl:h-[90dvh] 2xl:h-[600px] flex items-center justify-center'>
         <div className='hero lg:text-[5.5rem] md:text-[3.5rem] text-3xl gap-2 md:gap-8 relative flex items-center justify-center uppercase font-bold text-theme-white md:pl-15 pl-6'>
             <div className='student-container relative'> 
-                <span className='student-span'>Student</span> 
-                <div className="student-addon uppercase text-[50%] absolute top-[5%] -left-[20%] leading-[92%]">
+                <h2 className='student-span'>Student</h2> 
+                <div className="student-addon uppercase text-[50%] absolute top-[8%] -left-[20%] leading-[92%]">
                     <div>We</div>
                     <div>let</div>
                     <div>connect</div>
@@ -24,8 +24,8 @@ const Hero = () => {
             </div>
 
             <div className='w-fit alumni-container relative'> 
-                <span className='alumni-span'>Alumni</span>
-                <div className="alumni-addon uppercase text-[50%] absolute -top-[32%] right-[15%]">
+                <h2 className='alumni-span'>Alumni</h2>
+                <div className="alumni-addon uppercase text-[50%] absolute -top-[25%] right-[15%]">
                     <div>with</div>
                 </div>
                 <span className="alumni-addon-img-container absolute top-[13%] -right-[10%] block w-[25%]">
