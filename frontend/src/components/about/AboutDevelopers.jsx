@@ -3,7 +3,7 @@ import DevCards from './DevCards'
 
 const AboutDevelopers = () => {
   return (
-    <div className='max-w-6xl h-dvh mx-auto flex items-center justify-center pt-20 text-theme-white'>
+    <div className='max-w-6xl h-dvh mx-auto mt-10 mb-10 flex items-center justify-center pt-20 text-theme-white'>
         <div className="flex flex-col items-center justify-center uppercase">
             <div className='text-center'>
                 <h4>Finally !!</h4>

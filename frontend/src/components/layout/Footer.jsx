@@ -78,7 +78,7 @@ const Footer = () => {
 
 
       {/* Main Footer Content */}
-      <div className="clip-mobile md:clip-tablet lg:clip-desktop bg-secondary-color px-8 pt-20 pb-8">
+      <div className="clip-mobile md:clip-tablet lg:clip-desktop bg-secondary-color px-8 pt-10 pb-4">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-20">
           
           {/* Left Column - Logo and Social Media */}
