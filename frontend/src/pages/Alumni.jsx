@@ -1,9 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import AlumniCard from '../components/alumni/AlumniCard';
 import { fetchRandomAlumni } from '../api/alumniAPI'
 import AlumniCardSkeleton from '../components/alumni/AlumniCardSkeleton';
+import { useGSAP } from '@gsap/react';
+import { headingAnimation } from '../animations/headingCommonAnimation';
 
 const Alumni = () => {
+
+  const alumniRef = useRef(null);
+
+  useGSAP(()=>{
+    headingAnimation(".alumni-text", alumniRef)
+  })
+
   const [alumniList, setAlumniList] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
@@ -25,11 +34,11 @@ const Alumni = () => {
   }, [])
 
   return (
-    <section className='w-screen max-w-6xl mx-auto px-10 pt-25 text-theme-white relative flex flex-col items-start'>
+    <section ref={alumniRef} className='w-screen max-w-6xl mx-auto px-10 pt-25 text-theme-white relative flex flex-col items-start'>
       
       <div className='uppercase font-bold text-4xl'>
-        <h3>our</h3>
-        <h3>alumni</h3>
+        <h3 className='alumni-text'>our</h3>
+        <h3 className='alumni-text'>alumni</h3>
       </div>
 
       <div className='w-full mx-auto mt-10 flex flex-col items-center uppercase gap-3'>
@@ -53,7 +62,7 @@ const Alumni = () => {
 
         {/*Data */}
         {!loading && !error && alumniList.map(alumni => (
-          <AlumniCard key={alumni.id} alumni={alumni} />
+          <AlumniCard key={alumni.id} alumni={alumni} alumniRef={alumniRef}/>
         ))}
 
       </div>
