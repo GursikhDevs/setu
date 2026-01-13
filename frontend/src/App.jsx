@@ -25,9 +25,11 @@ const App = () => {
         {/* Private routes */}
         <Route path='/feed' 
           element={ 
-            <PrivateRoute>
+            // <PrivateRoute>
+            //   <Feed />
+            // </PrivateRoute>
+
               <Feed />
-            </PrivateRoute>
           } 
         />
         <Route path='/profile' 

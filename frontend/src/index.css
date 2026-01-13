@@ -193,6 +193,20 @@ html, body{
 /***** End alumni Section *****/
 
 
+/***** Section private alumni section *****/  
+.alumni-recommend-section::-webkit-scrollbar{
+  display: none;
+}
+/***** End Section private alumni section *****/
+
+/***** Section profile *****/  
+
+/***** End Section profile *****/
+
+
+
+
+
 /* 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
