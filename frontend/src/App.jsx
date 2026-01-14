@@ -32,7 +32,7 @@ const App = () => {
               <Feed />
           } 
         />
-        <Route path='/profile' 
+        <Route path='/feed/profile' 
           element={ 
             <PrivateRoute>
               <Profile />

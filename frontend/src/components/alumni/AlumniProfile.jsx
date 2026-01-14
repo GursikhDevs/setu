@@ -1,4 +1,8 @@
 import React from 'react'
+import { TfiLinkedin } from "react-icons/tfi";
+import { FaXTwitter, FaGithub } from "react-icons/fa6";
+import { SiGmail } from "react-icons/si";
+
 
 const AlumniProfile = ({alumni}) => {
 
@@ -10,8 +14,8 @@ const AlumniProfile = ({alumni}) => {
   }
   
   return (
-    <div className='w-full h-full p-6 flex flex-cols overflow-y-auto bg-secondary-color'>        
-      <div className='flex items-center gap-20 w-full h-40'>
+    <div className='w-full h-full px-6 py-4 flex flex-col gap-2 overflow-y-auto bg-secondary-color'>        
+      <div className='flex items-center gap-20 md:gap-30 w-full h-40'>
         <div className='w-30 h-30 relative shrink-0'>
           <img className=' w-full h-full object-cover rounded-2xl' src={alumni.profileImage} alt={alumni.username} />
           <h3 className=' uppercase font-bold text-2xl shrink-0 leading-4.5 absolute bottom-0 left-[75%] text-white'>{alumni.fullName}</h3>
@@ -37,8 +41,62 @@ const AlumniProfile = ({alumni}) => {
         </div>
       </div>
 
-      <div>
+      <div className='dev-gif flex justify-between gap-1 text-3xl text-white-color font-Urbanist font-bold uppercase w-full h-fit px-2 items-center'>
+            <h3 className='shrink-0'>{alumni.role}</h3>
+            <div className='w-full h-0.5 bg-white-color'></div>
+            <h3 className='shrink-0 tracking-tighter'>Batch:{alumni.batch}</h3>
+      </div>
 
+      <div className='w-full h-full p-2 gap-1 flex overflow-scroll text-black/80'>
+        <div className=' bg-orange-200 w-[80%] h-full rounded-2xl p-2 font-Urbanist leading-5.5 overflow-y-scroll'>
+            <ul>
+              
+              <li className='h-fit flex'>
+                <span className='font-semibold font-Urbanist w-[50%] pr-1 inline-block text-right'>Specialization</span> : 
+                <span className='w-[40%] px-1 text-left inline-block'>{alumni.specialization}</span>
+              </li>
+
+              <li className='h-fit flex'>
+                <span className='font-semibold font-Urbanist w-[50%] pr-1 inline-block text-right'>Skills</span> : 
+                <span className='w-[40%] px-1 text-left inline-block'>
+                  {
+                  alumni.skills?.map((elem, i)=>(
+                    <span key={i}>
+                      {` ${elem}, `}
+                    </span>
+                  ))
+                }
+                </span>
+              </li>
+
+              <li className='h-fit flex'>
+                <span className='font-semibold font-Urbanist w-[50%] pr-1 inline-block text-right'>Experience</span> : 
+                <span className='w-[40%] px-1 text-left inline-block'>{alumni.experience}</span>
+              </li>
+
+              <li className='h-fit flex'>
+                <span className='font-semibold font-Urbanist w-[50%] pr-1 inline-block text-right'>Current Role</span> : 
+                <span className='w-[40%] px-1 text-left inline-block'>{alumni.currentRole}</span>
+              </li>
+
+              <li className='h-fit flex'>
+                <span className='font-semibold font-Urbanist w-[50%] pr-1 inline-block text-right'>Company</span> : 
+                <span className='w-[40%] px-1 text-left inline-block'>{alumni.company}</span>
+              </li>
+
+              <li className='h-fit flex'>
+                <span className='font-semibold font-Urbanist w-[50%] pr-1 inline-block text-right'>Location</span> : 
+                <span className='w-[40%] px-1 text-left inline-block'>{alumni.location}</span>
+              </li>
+
+            </ul>
+        </div>
+        <div className=' bg-orange-200 w-[20%] h-full rounded-2xl flex flex-col justify-center items-center gap-3 text-2xl'>
+          <SiGmail />
+          <TfiLinkedin />
+          <FaXTwitter />
+          <FaGithub />
+        </div>
       </div>
         
     </div>

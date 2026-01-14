@@ -1,6 +1,7 @@
 const alumniUsers = [
   {
     id: 1,
+    role: "Alumni",
     username: "rahul_kumar",
     fullName: "Rahul Kumar",
     specialization: "Full Stack Developer",
@@ -16,6 +17,7 @@ const alumniUsers = [
   },
   {
     id: 2,
+    role: "Alumni",
     username: "ananya_singh",
     fullName: "Ananya Singh",
     specialization: "UI/UX Designer",
@@ -31,6 +33,7 @@ const alumniUsers = [
   },
   {
     id: 3,
+    role: "Alumni",
     username: "arjun_verma",
     fullName: "Arjun Verma",
     specialization: "Data Scientist",
@@ -46,6 +49,7 @@ const alumniUsers = [
   },
   {
     id: 4,
+    role: "Alumni",
     username: "neha_sharma",
     fullName: "Neha Sharma",
     specialization: "Mobile App Developer",
@@ -61,6 +65,7 @@ const alumniUsers = [
   },
   {
     id: 5,
+    role: "Alumni",
     username: "rohit_mehta",
     fullName: "Rohit Mehta",
     specialization: "Cloud & DevOps Engineer",
@@ -78,6 +83,7 @@ const alumniUsers = [
   // --- Additional Randomized Alumni ---
   {
     id: 6,
+    role: "Alumni",
     username: "priya_patel",
     fullName: "Priya Patel",
     specialization: "Frontend Developer",
@@ -93,6 +99,7 @@ const alumniUsers = [
   },
   {
     id: 7,
+    role: "Alumni",
     username: "amit_joshi",
     fullName: "Amit Joshi",
     specialization: "Backend Developer",
@@ -108,6 +115,7 @@ const alumniUsers = [
   },
   {
     id: 8,
+    role: "Alumni",
     username: "kavya_reddy",
     fullName: "Kavya Reddy",
     specialization: "AI Engineer",
@@ -123,6 +131,7 @@ const alumniUsers = [
   },
   {
     id: 9,
+    role: "Alumni",
     username: "sachin_rawat",
     fullName: "Sachin Rawat",
     specialization: "Cyber Security Analyst",
@@ -138,6 +147,7 @@ const alumniUsers = [
   },
   {
     id: 10,
+    role: "Alumni",
     username: "pooja_nair",
     fullName: "Pooja Nair",
     specialization: "Product Manager",

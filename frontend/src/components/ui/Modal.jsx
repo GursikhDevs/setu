@@ -18,7 +18,7 @@ export const Modal = ({isOpen, onClose, children})=>{
                 className='absolute inset-0 bg-black/40 backdrop-blur-sm ' 
             />
                 {/* modal box */}
-                <div className='relative z-10 w-[70vw] h-[80vh] bg-white rounded-2xl shadow-xl overflow-hidden'>
+                <div className='relative z-10 w-[70vw] h-[90vh] md:h-[80vh] bg-white rounded-2xl shadow-xl overflow-hidden'>
                     <RxCross1 onClick={onClose} className='text-2xl absolute top-5 right-5 cursor-pointer'/>
                     {children}
                 </div>
