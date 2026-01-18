@@ -148,18 +148,9 @@ html, body{
 
 
 /***** landing page css start *****/ 
-
-.hero:before{
-  content: "";
-  position: absolute;
-  top:50%;
-  left: 36%;
-  width: 36%;
-  height: 3%;
-  background-color: var(--color-theme-white);
-  user-select: none;
+.glow-on-hover{
+  box-shadow: 0 0 20px var(--color-white-color);
 }
-
 /***** landing page css End *****/
 
 /***** mini hero Section *****/  

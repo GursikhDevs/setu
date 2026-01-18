@@ -8,15 +8,9 @@ import MiniHero from '../components/landing/MiniHero'
 const Landing = () => {
   return (
     <>
-      <Navbar />
-
-      <main>
         <Hero />
         <MiniHero />
         <About />
-      </main>
-
-      <Footer />
     </>
   )
 }
