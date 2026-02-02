@@ -2,8 +2,7 @@ import AlumniSuggestionCard from '../components/alumni/AlumniSuggestionCard';
 import Profile from '../components/Feed/Profile';
 import { useNavigate } from 'react-router-dom'
 import { FiRefreshCw } from "react-icons/fi";
-import Sidebar from "../components/layout/Sidebar";
-
+import ShowPosts from '../components/Feed/ShowPosts';
 
 const Feed = () => {
   const navigate = useNavigate();
@@ -18,12 +17,9 @@ const Feed = () => {
   }
 
   return (
-    <div className='max-w-7xl h-dvh mx-auto relative flex flex-none'>
-      
-      <Sidebar />
-
-      <main className=' w-full h-dvh border-l border-r text-theme-white '>
-        
+    <div className=' h-dvh mx-auto relative flex flex-1 overflow-hidden'>
+      <main className=' w-full h-dvh border-l border-r text-theme-white overflow-hidden'>
+        <ShowPosts />
       </main>
 
       <aside className='w-100 h-dvh text-white-color flex flex-col'>
