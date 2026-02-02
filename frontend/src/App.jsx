@@ -6,8 +6,10 @@ import Contact from './pages/Contact'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import Feed from './pages/Feed'
-import Profile from './pages/Profile'
+// import Profile from './pages/Profile'
 import PrivateRoute from './routes/PrivateRoute'
+import Messages from './pages/Messages' 
+import Profile from './pages/profilePage'
 
 const App = () => {
   return (
@@ -25,15 +27,27 @@ const App = () => {
         {/* Private routes */}
         <Route path='/feed' 
           element={ 
-            <PrivateRoute>
+            // <PrivateRoute>
+            //   <Feed />
+            // </PrivateRoute>
+
               <Feed />
+          } 
+        />
+        <Route path='/feed/profile' 
+          element={ 
+            <PrivateRoute>
+              <Profile/>
             </PrivateRoute>
           } 
         />
-        <Route path='/profile' 
-          element={ 
+
+         {/* ✅ Messages Route */}
+        <Route 
+          path='/messages' 
+          element={
             <PrivateRoute>
-              <Profile />
+              <Messages />
             </PrivateRoute>
           } 
         />

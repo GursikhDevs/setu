@@ -1,36 +1,64 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { useAuthStore } from '../store/authStore';
+
+const departments = [
+  "Computer Science",
+  "Medical",
+  "Business",
+  "Mechanical",
+  "Electronics",
+  "Arts",
+  "Hotel Management",
+  "Other",
+];
 
 // Simulated Zustand store (in real app, this would be in a separate file)
-const useAuthStore = {
-  register: (data) => {
-    console.log('Registering user:', data);
-    // Here you would call your API
-  },
-  loginWithGoogle: () => {
-    console.log('Login with Google');
-  },
-  loginWithLinkedIn: () => {
-    console.log('Login with LinkedIn');
-  }
-};
+// const useAuthStore = {
+//   register: (data) => {
+//     console.log('Registering user:', data);
+//     // Here you would call your API
+//   },
+//   loginWithGoogle: () => {
+//     console.log('Login with Google');
+//   },
+//   loginWithLinkedIn: () => {
+//     console.log('Login with LinkedIn');
+//   }
+// };
+
 
 function Register() {
+  const registerUser=useAuthStore((state)=>state.register);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const { register, handleSubmit, formState: { errors }, watch } = useForm();
 
-  const roles = [
-    { value: 'student', label: 'Student', icon: '🎓' },
-    { value: 'alumni', label: 'Alumni', icon: '🎖️' },
-    { value: 'admin', label: 'Admin', icon: '⚙️' }
-  ];
+  // const roles = [
+  //   { value: 'student', label: 'Student', icon: '🎓' },
+  //   { value: 'alumni', label: 'Alumni', icon: '🎖️' },
+  //   { value: 'admin', label: 'Admin', icon: '⚙️' }
+  // ];
+const roles = [
+  { value: 'student', label: 'Student', icon: '🎓' },
+  { value: 'alumni', label: 'Alumni', icon: '🎖️' },
+];
 
-  const onSubmit = (data) => {
-    console.log('Form submitted:', data);
-    useAuthStore.register(data);
-    alert('Registration successful! Check console for data.');
+
+  const onSubmit =async (data) => {
+     try {
+    await registerUser(data);
+
+    alert("Registration successful! Please login.");
+    navigate("/login");
+  } catch (error) {
+    alert(
+      error?.response?.data?.err ||
+      error?.message ||
+      "Registration failed"
+    );
+  }
   };
 
   const handleNavigateToLogin = () => {
@@ -48,7 +76,7 @@ function Register() {
   };
 
   return (
-    <div className="min-h-[100dvh] bg-main-color flex items-center justify-center p-1 relative overflow-hidden">
+    <div className="min-h-dvh[100] bg-main-color flex items-center justify-center p-1 relative overflow-hidden">
       {/* Animated Background Shapes with Clip Paths */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div 
@@ -150,6 +178,31 @@ function Register() {
             </div>
 
             <div className="space-y-4">
+         
+         {/* UserName */}
+<div>
+  <input
+    {...register('userName', {
+      required: 'Username is required',
+      minLength: {
+        value: 2,
+        message: 'Username must be at least 2 characters',
+      },
+    })}
+    type="text"
+    placeholder="Enter username"
+    className="w-full px-4 py-2 border-2 border-gray-light rounded-xl focus:border-secondary-color focus:outline-none transition-colors"
+  />
+  {errors.userName && (
+    <p className="mt-1 text-sm text-red-600">
+      {errors.userName.message}
+    </p>
+  )}
+</div>
+
+
+
+
 
               {/* Email */}
               <div>
@@ -169,6 +222,30 @@ function Register() {
                   <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
                 )}
               </div>
+
+              {/* Department */}
+<div>
+  <select
+    {...register('department', {
+      required: 'Department is required',
+    })}
+    className="w-full px-4 py-2 border-2 border-gray-light rounded-xl focus:border-secondary-color focus:outline-none transition-colors bg-white"
+  >
+    <option value="">Select department</option>
+    {departments.map((dept) => (
+      <option key={dept} value={dept}>
+        {dept}
+      </option>
+    ))}
+  </select>
+
+  {errors.department && (
+    <p className="mt-1 text-sm text-red-600">
+      {errors.department.message}
+    </p>
+  )}
+</div>
+
 
               {/* Role */}
               <div>

@@ -1,8 +1,8 @@
 import { io } from "socket.io-client";
 
 const SERVER = "http://localhost:3000";   // your backend
-const ROOM_ID = "6952a7d6451abdf8e264a346";
-const TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6IjY5MTA5YWY5MzkwZDkxNDk1Yzk2Yjg0MiIsInJvbGUiOiJzdHVkZW50IiwibmFtZSI6Ik1hbmRlZXAgVGl3YXJpIiwiaWF0IjoxNzY3MDIzNDc2LCJleHAiOjE3NjcxMDk4NzZ9.26s-JVedol4S0wdN_Pcl2u13zKkgro-I6k6awhXduAU";
+const ROOM_ID = "6968b8e953991b2b2caafd8b";
+const TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6IjY5NTYzZmY4ODA4MTQ3NmQ3Yjk0Zjk0MyIsInJvbGUiOiJhbHVtbmkiLCJuYW1lIjoiQWNoYXJ5YSBQcmFzaGFudCIsImlhdCI6MTc2ODY3Mjg3NCwiZXhwIjoxNzY4NzU5Mjc0fQ.eJ3YEDz4DIlKlOWQSdL5fJc_VXVea1bPMRaXqxDErPM";
 
 const socket = io(SERVER, {
   withCredentials: true,
@@ -21,7 +21,7 @@ socket.on("connect", () => {
   setTimeout(() => {
     socket.emit("sendMessage", {
       roomId: ROOM_ID,
-      text: "Hello from mandeep!"
+      text: "Hello from acharya praahsant!"
     });
   }, 8000);
 });

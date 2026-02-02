@@ -1,19 +1,43 @@
 import React from 'react'
 import { FaRegStar } from "react-icons/fa";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const AlumniCard = ({ alumni }) => {
-  const navigate=useNavigate();
+
+  // useGSAP(()=>{
+  //   gsap.from(".card",{
+  //     xPercent: -100, //check this if any problem occur in animation of cards
+  //     ease: 'power1.out',
+  //     scrollTrigger: {
+  //       trigger: alumniRef.current,
+  //       start: "top 50%",
+  //         end: "top 10% ",
+  //         scrub: 1,
+  //     }
+  //   })
+  // })
+
+  const Navigate = useNavigate();
+
+  const handleMentorshipButton = ()=>{
+    Navigate('/login');
+  }
+
   return (
-    <div className='w-full h-20 p-2 flex items-center justify-between border rounded border-theme-white'>
+    <div className='card w-full h-20 p-2 flex items-center justify-between border rounded border-theme-white'>
       
       <div className='alumni-clip-path w-20 h-17 border-t-3 border-l-3 border-r-3 border-amber-50'>
         <img
           className='object-cover w-full h-full'
-          src={alumni.user.profileImg
+          src={alumni.user.
+profileImg
 }
-          alt={alumni.user.userName
-}
+          alt={alumni.user.userName}
         />
       </div>
 
@@ -30,8 +54,10 @@ const AlumniCard = ({ alumni }) => {
       </div>
 
       <div>
-        <button onClick={()=>navigate("/login")} className='capitalize leading-4 bg-secondary-color py-1 px-3 rounded-xl'>
-          {alumni.availableForMentorship ? 'open to mentorship' : 'not available'}
+        <button onClick={ handleMentorshipButton } className='capitalize leading-4 bg-secondary-color py-1 px-3 rounded-xl'>
+          {alumni.
+availableForMentorship
+ ? 'open to mentorship' : 'not available'}
         </button>
 
         <div className='flex justify-center pt-1'>

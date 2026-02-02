@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useAuthStore } from '../store/authStore';
+import { useAuthStore } from "../store/authStore.js";
 
 // Simulated Zustand store (in real app, this would be in a separate file)
 // const useAuthStore = {
 //   login: (data) => {
-//     console.log('Logging in user:', data);
+//     // console.log('Logging in user:', data);
 //     // Here you would call your API
 //     return { success: true, user: data };
 //   },
@@ -17,8 +17,8 @@ import { useAuthStore } from '../store/authStore';
 //     console.log('Login with LinkedIn');
 //   }
 // };
+
 function LoginPage() {
-  const { login } = useAuthStore();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -30,52 +30,63 @@ function LoginPage() {
     { value: 'admin', label: 'Admin', icon: '⚙️' }
   ];
 
-  const onSubmit = async (data) => {
-    setIsLoading(true);
+  // const onSubmit = async (data) => {
+  //   setIsLoading(true);
     
-    // Simulate API call
-   
-      try {
-        // const result = useAuthStore.login(data);
-        // const res=await fetch(`${import.meta.env.VITE_API_URL}/auth/login`,{
-        //   method:"POST",
-        //   headers:{
-        //     "Content-Type":"application/json",
-        //   },
-        //   credentials:"include",
-        //   body: JSON.stringify({
-        //     email: data.email,
-        //     password: data.password,
-        //   }),
-        // });
-        //  const result = await res.json();
-        //  if(!res.ok){
-        //   setError("email",{
-        //     type:"manual",
-        //     message: result?.message ||"Login failed"
-        //   });
-        //   return;
-        //  }
+  //   // Simulate API call
+  //   setTimeout(() => {
+  //     try {
+  //       const result = useAuthStore.login(data);
         
-        //  console.log('Logged in user:', result.user);
-        //   alert('Login successful! Check console for data.');
-         
-        //   // In real app: navigate('/dashboard')
-        //   navigate('/feed')
-        await login(data);
-    alert("Login Success");
+  //       if (result.success) {
+  //         alert('Login successful! Check console for data.');
+  //         console.log('Logged in user:', result.user);
+  //         // In real app: navigate('/dashboard')
+  //         navigate('/feed')
+  //       } else {
+  //         setError('email', { 
+  //           type: 'manual', 
+  //           message: 'Invalid credentials' 
+  //         });
+  //       }
+  //     } catch (error) {
+  //       setError('email', { 
+  //         type: 'manual', 
+  //         message: 'Login failed. Please try again.' 
+  //       });
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   }, 1000);
+  // };
+  const { login } = useAuthStore();
+
+const onSubmit = async (data) => {
+  try {
+    setIsLoading(true);
+
+    console.log("Submitting login:", data);
+
+    await login({
+      email: data.email,
+      password: data.password,
+    });
+
+    console.log("Login API success");
     navigate("/feed");
-         
-      } catch (error) {
-        setError('email', { 
-          type: 'manual', 
-          message: 'Login failed. Please try again.' 
-        });
-      } finally {
-        setIsLoading(false);
-      }
-   
-  };
+
+  } catch (error) {
+    console.error("Login failed:", error);
+
+    setError("email", {
+      type: "manual",
+      message: "Invalid email or password",
+    });
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   const handleGoogleLogin = () => {
     useAuthStore.loginWithGoogle();

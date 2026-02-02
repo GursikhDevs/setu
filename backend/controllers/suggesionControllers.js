@@ -1,5 +1,6 @@
 import User from "../models/user.js";
 import AlumniProfile from "../models/alumni.js";
+import mongoose from "mongoose";
 
 export const alumniSuggestionList=async(req,res)=>{
     try{
@@ -98,6 +99,8 @@ const result = await AlumniProfile.aggregate(pipeline);
 //without login alumni suggestion list
 export const publicAlumniSuggestionList = async (req, res) => {
   try {
+    console.log("aya");
+    
     const page = Math.max(parseInt(req.query.page ?? "1", 10), 1);
     const limit = Math.min(Math.max(parseInt(req.query.limit ?? "10", 10), 1), 50);
     const skip = (page - 1) * limit;
@@ -174,3 +177,139 @@ export const publicAlumniSuggestionList = async (req, res) => {
     return res.status(500).json({ message: "Server Error", err });
   }
 };
+
+
+
+
+export const smartAlumniSuggestion=async(req,res)=>{
+  try{
+ const userId = req.user.userId;
+
+    // 1️⃣ Fetch logged-in user
+    const user = await User.findById(userId).lean();
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const userDepartment = user.department;
+    const userSkills = user.skills || [];
+    const userLocation = user.location || {};
+
+    // 2️⃣ Aggregation pipeline
+    const pipeline = [
+      // join alumni → user
+      {
+        $lookup: {
+          from: "users",
+          localField: "user",
+          foreignField: "_id",
+          as: "userDoc",
+        },
+      },
+      { $unwind: "$userDoc" },
+
+      // 3️⃣ Compute SCORE
+      {
+        $addFields: {
+          score: {
+            $add: [
+              // job area match
+              {
+                $cond: [
+                  { $eq: ["$jobArea", userDepartment] },
+                  30,
+                  0,
+                ],
+              },
+
+              // mentorship bonus
+              {
+                $cond: [
+                  { $eq: ["$availableForMentorship", true] },
+                  20,
+                  0,
+                ],
+              },
+
+              // experience points
+              {
+                $cond: [
+                  { $gte: ["$yearsOfExperience", 10] },
+                  20,
+                  {
+                    $cond: [
+                      { $gte: ["$yearsOfExperience", 5] },
+                      15,
+                      5,
+                    ],
+                  },
+                ],
+              },
+
+              // skill matching (cap at 25)
+              {
+                $min: [
+                  {
+                    $multiply: [
+                      {
+                        $size: {
+                          $setIntersection: ["$skills", userSkills],
+                        },
+                      },
+                      5,
+                    ],
+                  },
+                  25,
+                ],
+              },
+
+              // location match (country)
+              {
+                $cond: [
+                  {
+                    $eq: ["$location.country", userLocation.country],
+                  },
+                  5,
+                  0,
+                ],
+              },
+            ],
+          },
+        },
+      },
+
+      // 4️⃣ Sort by score
+      { $sort: { score: -1, createdAt: -1 } },
+
+      // 5️⃣ Limit to TOP 5
+      { $limit: 5 },
+
+      // 6️⃣ Shape final response
+      {
+        $project: {
+          score: 1,
+          company: 1,
+          jobTitle: 1,
+          jobArea: 1,
+          yearsOfExperience: 1,
+          availableForMentorship: 1,
+          user: {
+            _id: "$userDoc._id",
+            userName: "$userDoc.userName",
+            profileImg: "$userDoc.profileImg",
+          },
+        },
+      },
+    ];
+
+    const alumni = await AlumniProfile.aggregate(pipeline);
+
+    return res.json({
+      count: alumni.length,
+      suggestions: alumni,
+    });
+  }catch(err){
+    console.error("publicAlumniSuggestionList error:", err);
+    return res.status(500).json({ message: "Server Error", err });
+  }
+}

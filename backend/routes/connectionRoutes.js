@@ -4,6 +4,6 @@ import { sendConnectionRequest } from "../controllers/connections.js";
 
 const router = Router();
 
-router.get("/makeconnection",authenticateUser,sendConnectionRequest);
+router.get("/makeconnection/:targetId",authenticateUser,sendConnectionRequest);
 
 export default router;

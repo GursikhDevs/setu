@@ -13,7 +13,8 @@ import alumniRoutes from "./routes/alumniRoutes.js";
 import suggestionRoutes from "./routes/suggestionRoutes.js";
 import connectionRoutes from "./routes/connectionRoutes.js"
 import messageRoutes from "./routes/messagesRoutes.js";
-
+import postRoutes from "./routes/postRoutes.js";
+import profileRoutes from "./routes/profilePageRoutes.js";
 
 const app=express();
 await connectDB();  //db connection 
@@ -36,11 +37,12 @@ app.use("/alumni",alumniRoutes);
 app.use("/suggestion",suggestionRoutes);
 app.use("/connection",connectionRoutes);
 app.use("/chat",messageRoutes);
-
+app.use("/posts",postRoutes);
+app.use("/profile",profileRoutes);
 
 
 //starting server 
-const PORT = process.env.PORT||4000;
+const PORT = process.env.PORT||3000;
 server.listen(PORT,()=>{
     console.log(`Server started at PORT ${PORT}`);
     //  console.log("JWT_SECRET length:", process.env.JWT_SECRET?.length ?? "undefined");

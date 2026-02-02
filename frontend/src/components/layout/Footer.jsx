@@ -1,10 +1,36 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { FaGithub, FaLinkedinIn, FaXTwitter, FaInstagram   } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
+import gsap from 'gsap'
+import { useGSAP } from "@gsap/react"
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin"
+
+gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin);
 
 //! have to change the hover bg color of join us and get in touch button 
 
 const Footer = () => {
+
+  const footerRef = useRef(null);
+
+  useGSAP(()=>{
+    gsap.to('.footer-text',{
+      ease: 'linear',
+      scrambleText: {
+        text: "ONCE A NAME ON THE ATTENDANCE LIST, NOW A NAME WORTH KNOWING.",
+        chars: '********',
+      },
+      scrollTrigger: {
+        trigger: footerRef.current,
+        start: "top 85%",
+        end: 'top 25%',
+        scrub: true,
+        toggleActions: "play none none none",
+        // markers: true
+      }
+    })
+  })
 
     const navigate = useNavigate();
 
@@ -59,18 +85,17 @@ const Footer = () => {
     };
 
   return (
-    <footer className="bg-main-color">
+    <footer ref={footerRef} className="bg-main-color">
       {/* before footer Section */}
       <div className="px-8 pt-8 pb-2 text-center">
-        <h1 className="text-theme-white text-4xl md:text-5xl font-bold mb-8 leading-tight bg-image">
-          ONCE A NAME ON THE ATTENDANCE LIST, NOW<br />
-          A NAME WORTH KNOWING.
+        <h1 className="footer-text text-theme-white text-4xl md:text-5xl font-bold mb-8 leading-tight bg-image">
+          {/* value will be adding using the scramble text gsap */}
         </h1>
         
         {/* Join Us Button */}
         <button
           onClick={handleJoinUs}
-          className="bg-secondary-color cursor-pointer hover:bg-orange-500 text-white-color font-bold text-xl px-14 py-3 rounded-lg transition-colors duration-300"
+          className="join-us-btn relative bg-secondary-color cursor-pointer hover:bg-orange-500 text-white-color font-bold text-xl px-14 py-3 rounded-lg transition-colors duration-300 sd:px-8 sd:py-2"
         >
           JOIN US
         </button>
@@ -78,14 +103,14 @@ const Footer = () => {
 
 
       {/* Main Footer Content */}
-      <div className="clip-path bg-secondary-color px-8 pt-20 pb-8">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-20">
+      <div className="clip-mobile md:clip-tablet lg:clip-desktop bg-secondary-color px-8 pt-10 pb-4">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-x-30 gap-y-1">
           
           {/* Left Column - Logo and Social Media */}
           <div className="space-y-6 lg:ml-30">
             {/* Logo Placeholder */}
-            <div onClick={()=> navigate('/landing')} className="text-white-color cursor-pointer text-3xl font-bold italic">
-              LOGO
+            <div className="w-[30%] md:w-[70%] h-[25%] -m-0.5 -rotate-5">
+              <img className='w-full h-full object-cover' src="/images/setu-logo2.svg" alt="setu logo" />
             </div>
             
             {/* Tagline */}
@@ -140,7 +165,7 @@ const Footer = () => {
                   onClick={() => handleNavClick(
                         item.toLowerCase().trim().replace(/\s+/g, "-").replace(/\//g, "-")
                     )}
-                  className="block cursor-pointer text-white-color text-md hover:text-permanent-main-color transition-colors duration-300"
+                  className="w-fit block cursor-pointer text-white-color text-md hover:text-permanent-main-color transition-colors duration-300"
                 >
                   {item}
                 </div>
@@ -157,7 +182,7 @@ const Footer = () => {
                   onClick={() => handleNavClick(
                         item.toLowerCase().trim().replace(/\s+/g, "-").replace(/\//g, "-") 
                     )}
-                  className="block cursor-pointer text-white-color text-md hover:text-permanent-main-color transition-colors duration-300"
+                  className="w-fit block cursor-pointer text-white-color text-md hover:text-permanent-main-color transition-colors duration-300"
                 >
                   {item}
                 </div>
@@ -175,7 +200,7 @@ const Footer = () => {
         </div>
 
         {/* Copyright Section */}
-        <div className="mt-12 pt-8 border-t-2 border-white-color">
+        <div className="mt-8 pt-8 border-t-2 border-white-color">
           <div className="text-center text-white-color text-lg">
             <span>&copy; 2025 Setu, All Rights Reserved.</span>
             <span className="mx-4">|</span>

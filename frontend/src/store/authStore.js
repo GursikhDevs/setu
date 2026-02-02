@@ -1,3 +1,4 @@
+import axios from "axios";
 import { create } from "zustand";
 import { persist } from 'zustand/middleware';
 
@@ -12,59 +13,62 @@ export const useAuthStore = create(
       token: null,
 
       // Register User
-      register: async (data) => {
-        try {
-          const response = await fetch('/api/auth/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-          });
-          
-          if (!response.ok) {
-            throw new Error('Registration failed');
-          }
-          
-          const result = await response.json();
-          set({ 
-            user: result.user, 
-            token: result.token,
-            isAuthenticated: true 
-          });
-          return result;
-        } catch (error) {
-          console.error('Registration error:', error);
-          throw error;
-        }
-      },
+     // Register User (SIGNUP)
+register: async (data) => {
+  try {
+    const response = await axios.post(
+      "http://localhost:3000/auth/signup",
+      data,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    // backend only returns message
+    return response.data;
+
+  } catch (error) {
+    console.error("Registration error:", error);
+    throw error;
+  }
+},
+
 
       // Login User
       login: async (data) => {
-        // console.log(data)
         try {
-          const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            credentials: "include",
-            body: JSON.stringify({
-        email: data.email,
-        password: data.password,
-      })
-          });
+          // const response = await fetch('http://localhost:3000/auth/login', {
+          //   method: 'POST',
+          //   headers: { 'Content-Type': 'application/json' },
+          //   body: JSON.stringify(data),
+          //   credentials: 'include',
+          // });
+          const response = await axios.post(
+  "http://localhost:3000/auth/login",
+  data,
+  {
+    withCredentials: true, // ✅ THIS is credentials: 'include'
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }
+);
+          console.log(response.data.jwt.token);
           
-          if (!response.ok) {
-            throw new Error('Invalid credentials');
-          }
           
-          const result = await response.json();
-          // console.log("result: ",result);
-          // console.log(result.jwt.token);
+        
           
+          // const result = await response.json();
           set({ 
-            user: result.user, 
-            token: result.jwt.token,
+            user: response.data.user, 
+            token: response.data.jwt.token,
             isAuthenticated: true 
           });
-          return result;
+          return response.data;
+          console.log(response.data);
+          
         } catch (error) {
           console.error('Login error:', error);
           throw error;

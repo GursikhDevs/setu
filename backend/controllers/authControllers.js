@@ -48,7 +48,7 @@ export const signup = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    // console.log(email,password);
+    console.log(email,password);
     
 
     const user = await User.findOne({ email }).select("+password");
@@ -68,10 +68,14 @@ export const login = async (req, res) => {
     const token = jwt.sign(payload, jwtSecret, {
       expiresIn: "1d",
     });
+    console.log(token);
+    
 
     res.cookie("access_token", token, {
       httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000, 
+  maxAge: 24 * 60 * 60 * 1000,
+  sameSite: "lax",
+  secure: false,
     });
 
     res.json({
@@ -81,6 +85,7 @@ export const login = async (req, res) => {
         email: user.email,
         department: user.department,
         role: user.role,
+        _id:user._id,
       },
       jwt :{
         token : token

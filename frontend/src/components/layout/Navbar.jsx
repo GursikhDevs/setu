@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import {useAuthStore} from "../../store/authStore";
 
 export default function Navbar() {
+   const isAuthenticated = useAuthStore(
+    (state) => state.isAuthenticated
+  );
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -18,8 +22,8 @@ export default function Navbar() {
   );
 
   return (
-    <>
-      <nav className="bg-transparent shadow-md relative z-50">
+    <header className='flex justify-center'>
+      <nav className="shadow-md fixed bg-main-color z-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
@@ -32,12 +36,19 @@ export default function Navbar() {
               <NavLink href="#home">Home</NavLink>
               <NavLink href="#about">About</NavLink>
               <NavLink href="#alumni">Alumni</NavLink>
-              <a 
+              {!isAuthenticated&&( <a 
                 href="/login" 
                 className="bg-secondary-color text-white-color hover:scale-105 px-6 py-2 rounded-md text-base font-medium transition-colors"
               >
                 Login
-              </a>
+              </a>)}
+              {isAuthenticated&&(<a 
+                href="/feed" 
+                className="bg-secondary-color text-white-color hover:scale-105 px-6 py-2 rounded-md text-base font-medium transition-colors"
+              >
+                Feed
+              </a>)}
+             
             </div>
 
             {/* Mobile menu button */}
@@ -112,6 +123,6 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-    </>
+    </header>
   );
 }

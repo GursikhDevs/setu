@@ -68,6 +68,8 @@ io.on("connection", (socket)=>{
     //User joins chat room
     socket.on("joinRoom",async(roomId)=>{
         try{
+            console.log("hitting room id");
+            
             const room = await Room.findById(roomId);
             if(!room){
                 return;
@@ -89,6 +91,8 @@ io.on("connection", (socket)=>{
    //chatting messages
     socket.on("sendMessage",async({roomId,text})=>{
         try{
+            console.log("message recieved in backend: ",text);
+            
         if(!text?.trim())return;
 
         const room= await Room.findById(roomId);
