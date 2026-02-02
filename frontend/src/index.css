@@ -1,27 +1,5 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: 'Bebas_Neue';
-  src: url('/fonts/Bebas_Neue/BebasNeue-Regular.woff2') format('woff2');
-  font-weight: 100 900; /* All weights from 100 to 900 */
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Exo_2';
-  src: url('/fonts/Exo_2/Exo2-VariableFont_wght.woff2') format('woff2');
-  font-weight: 100 900; /* This file handles 600-900 */
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Urbanist';
-  src: url('/fonts/Urbanist/Urbanist-VariableFont_wght.woff2') format('woff2');
-  font-weight: 100 900; /* This file handles 600-900 */
-  font-style: normal;
-  font-display: swap;
-}
-
 /* Define your custom theme */
 @theme {
   /*? Custom Colors */
@@ -47,9 +25,8 @@
   --color-theme-white: #F9FAFB;
 
   /* Custom Fonts */
-  --font-Bebas: 'Bebas_Neue','Urbanist', system-ui, sans-serif;
-  --font-Exo: 'Exo_2','Urbanist' , sans-serif;
-  --font-Urbanist: 'Urbanist', monospace, sans-serif;
+  --font-Bebas: system-ui, sans-serif;
+  --font-Urbanist: monospace, sans-serif;
   
   /* Custom Font Sizes */
   /* --font-size-xxs: 0.625rem;

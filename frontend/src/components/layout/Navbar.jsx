@@ -60,7 +60,7 @@ export default function Navbar() {
               <Link to="/alumni" className='nav-anim hover:text-secondary-color px-3 py-2 text-base font-medium transition-colors'>Alumni</Link>
               <button 
                 onClick={handleLoginClick}
-                className="nav-anim bg-secondary-color text-white-color hover:scale-105 px-6 py-2 rounded-md text-base font-medium transition-colors"
+                className="nav-anim bg-secondary-color text-white-color px-6 py-2 rounded-xl text-base font-medium transition-colors hover:scale-105 active:scale-95"
               >
                 Login
               </button>
@@ -131,7 +131,7 @@ export default function Navbar() {
             </Link>
             <button 
               onClick={handleLoginClick}
-              className="link-slide bg-permanent-main-color text-white-color hover:bg-white-color hover:text-permanent-main-color px-4 py-3 rounded-md text-base font-medium text-center transition-colors mt-4"
+              className="link-slide bg-permanent-main-color text-white-color hover:bg-white-color hover:text-permanent-main-color px-4 py-3 rounded-md text-base font-medium text-center transition-colors mt-4 hover:scale-105 active:scale-95"
             >
               Login
             </button>

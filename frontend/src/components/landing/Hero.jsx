@@ -72,10 +72,10 @@ const Hero = () => {
             <h3 className='tag-text'>“Learn from those who were once in your place”</h3>
 
             <div className='tag-text w-fit px-5 font-Urbanist mt-2 rounded-full'>
-                <button onClick={()=>{navigate('/register')}} className=' border-2 px-2 py-1 rounded-l-full rounded-br-full cursor-pointer mr-2 shadow-[0_0_20px_rgba(34,211,238,0.4)] transition-colors duration-300 hover:bg-secondary-color hover:border-secondary-color'>
+                <button onClick={()=>{navigate('/register')}} className=' border-2 px-2 py-1 rounded-l-full rounded-br-full cursor-pointer mr-2 shadow-[0_0_20px_rgba(34,211,238,0.4)] transition-colors duration-300 hover:bg-secondary-color hover:border-secondary-color hover:scale-105 active:scale-95'>
                     Get Started
                 </button>
-                <button onClick={()=>{navigate('/alumni')}} className='tag-text border-2 px-2 py-1 rounded-r-full rounded-bl-full cursor-pointer shadow-[0_0_20px_rgba(34,211,238,0.4)] transition-colors duration-300 hover:bg-forest-green-600 hover:border-forest-green-600'>
+                <button onClick={()=>{navigate('/alumni')}} className='tag-text border-2 px-2 py-1 rounded-r-full rounded-bl-full cursor-pointer shadow-[0_0_20px_rgba(34,211,238,0.4)] transition-colors duration-300 hover:bg-forest-green-600 hover:border-forest-green-600 hover:scale-105 active:scale-95'>
                     Explore Alumni
                 </button>
             </div>

@@ -8,8 +8,6 @@ import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin"
 
 gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin);
 
-//! have to change the hover bg color of join us and get in touch button 
-
 const Footer = () => {
 
   const footerRef = useRef(null);
@@ -30,7 +28,7 @@ const Footer = () => {
         // markers: true
       }
     })
-  })
+  }, { scope: footerRef })
 
     const navigate = useNavigate();
 
@@ -95,7 +93,7 @@ const Footer = () => {
         {/* Join Us Button */}
         <button
           onClick={handleJoinUs}
-          className="join-us-btn relative bg-secondary-color cursor-pointer hover:bg-orange-500 text-white-color font-bold text-xl px-14 py-3 rounded-lg transition-colors duration-300 sd:px-8 sd:py-2"
+          className="join-us-btn relative bg-secondary-color cursor-pointer hover:bg-orange-500 text-white-color font-bold text-xl px-14 py-3 rounded-lg transition-all duration-300 sd:px-8 sd:py-2 hover:scale-105 active:scale-95"
         >
           JOIN US
         </button>
@@ -125,7 +123,7 @@ const Footer = () => {
                 className="w-10 h-10 bg-transparent flex items-center justify-center"
                 aria-label="GitHub"
               >
-                <FaGithub className="w-8 h-8 text-white-color cursor-pointer hover:text-permanent-main-color hover:scale-120 transition-all duration-300" />
+                <FaGithub className="w-8 h-8 text-white-color cursor-pointer hover:text-permanent-main-color hover:scale-115 active:scale-95 transition-all duration-300" />
               </div>
               
               <div
@@ -133,7 +131,7 @@ const Footer = () => {
                 className="w-10 h-10 bg-transparent flex items-center justify-center "
                 aria-label="Instagram"
               >
-                <FaInstagram  className="w-8 h-8 text-white-color cursor-pointer hover:text-permanent-main-color hover:scale-120 transition-all duration-300" />
+                <FaInstagram  className="w-8 h-8 text-white-color cursor-pointer hover:text-permanent-main-color hover:scale-115 active:scale-95 transition-all duration-300" />
               </div>
 
               <div
@@ -141,7 +139,7 @@ const Footer = () => {
                 className="w-10 h-10 bg-transparent flex items-center justify-center"
                 aria-label="Twitter"
               >
-                <FaXTwitter className="w-8 h-8 text-white-color cursor-pointer hover:text-permanent-main-color hover:scale-120 transition-all duration-300" />
+                <FaXTwitter className="w-8 h-8 text-white-color cursor-pointer hover:text-permanent-main-color hover:scale-115 active:scale-95 transition-all duration-300" />
               </div>
 
               <div
@@ -149,7 +147,7 @@ const Footer = () => {
                 className="w-10 h-10 bg-transparent flex items-center justify-center"
                 aria-label="LinkedIn"
               >
-                <FaLinkedinIn className="w-8 h-8 text-white-color cursor-pointer hover:text-main-color hover:scale-120 transition-all duration-300" />
+                <FaLinkedinIn className="w-8 h-8 text-white-color cursor-pointer hover:text-main-color hover:scale-115 active:scale-95 transition-all duration-300" />
               </div>
 
             </div>

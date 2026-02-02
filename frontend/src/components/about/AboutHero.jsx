@@ -22,7 +22,7 @@ const AboutHero = () => {
 
         cards.forEach(card => {
             totalWidth += card.offsetWidth;
-            console.log("totalWidth: ",totalWidth)
+            // console.log("totalWidth: ",totalWidth)
         });
 
         return aboutHeroAnimations({
@@ -33,14 +33,14 @@ const AboutHero = () => {
             isLargeDisplay
         })
 
-    }, [])
+    }, {scope: aboutRef})
     
     const navigate = useNavigate();
 
-    // const handleLogin = (e)=>{
-    //     e.stopPropagation();
-    //     navigate("/login");
-    // }
+    const handleLogin = (e)=>{
+        e.stopPropagation();
+        navigate("/login");
+    }
     
 
   return (
@@ -70,7 +70,7 @@ const AboutHero = () => {
                             <h2 className='-ml-5 md:-ml-7'>aur family unite!"</h2>
                             <img className='w-[30%] absolute pointer-events-none -top-[18%] md:-top-[30%] -left-[33%] -rotate-185' src="/images/connect1.svg" alt="connect svg" />
 
-                            <button onClick={() => alert("CLICKED")} className="glow-on-hover w-fit z-50 pointer-events-auto bg-forest-green-900 cursor-pointer text-white-color font-bold text-xl px-14 py-3 mt-5 rounded-lg sd:px-8 sd:py-2 ">
+                            <button onClick={handleLogin} className="glow-on-hover w-fit z-50 pointer-events-auto bg-forest-green-900 cursor-pointer text-white-color font-bold text-xl px-14 py-3 mt-5 rounded-lg sd:px-8 sd:py-2 ">
                                 Login
                             </button>
                         </div>

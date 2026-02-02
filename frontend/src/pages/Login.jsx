@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { RxCross1 } from "react-icons/rx";
 
 // Simulated Zustand store (in real app, this would be in a separate file)
 const useAuthStore = {
@@ -74,7 +75,8 @@ function LoginPage() {
   };
 
   return (
-    <div className="min-h-[100dvh] bg-main-color  flex items-center justify-center p-1 relative overflow-hidden">
+    <div className="min-h-dvh bg-main-color  flex items-center justify-center p-1 relative overflow-hidden">
+
       {/* Animated Background Shapes with Clip Paths */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div 
@@ -111,6 +113,17 @@ function LoginPage() {
       </div>
 
       <div className="relative w-full max-w-4xl">
+        <RxCross1
+          className="absolute right-6 top-5 cursor-pointer z-99 text-white text-2xl hover:scale-110 active:scale-95"
+          onClick={() => {
+            if (window.history.length > 1) {
+              navigate(-1);
+            } else {
+              navigate("/"); 
+            }
+          }}
+        />
+        
         <div className="bg-white-color rounded-3xl shadow-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2">
           
           {/* Left Side - Form (Opposite of Register) */}

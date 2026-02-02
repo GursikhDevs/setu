@@ -21,9 +21,8 @@ const AboutDevelopers = () => {
                 end: 'top 40%',
                 scrub: 2
             }
-        });
-        
-    })
+        }); 
+    }, {scope:devContainerRef})
 
   return (
     <div ref={devContainerRef} className=' max-w-6xl h-dvh mx-auto mt-10 mb-10 flex items-center justify-center pt-20 text-theme-white'>
