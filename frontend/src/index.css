@@ -5,6 +5,7 @@
   /*? Custom Colors */
   /* Main colors */
   --color-main-color: #094944;
+  /* --color-main-color: #F9FAFB; */
   --color-secondary-color: #EA8B62;
   --color-white-color: #F9FAFB;
   --color-green-color: #60BD81;
@@ -23,6 +24,7 @@
 
   /* color can be changed in theme dark/light */
   --color-theme-white: #F9FAFB;
+  /* --color-theme-white: #094944; */
 
   /* Custom Fonts */
   --font-Bebas: system-ui, sans-serif;
@@ -159,6 +161,49 @@ html, body{
   border-image: url(/images/bg-gif3.gif) 30 stretch;
 }
 /***** End alumni Section *****/
+
+
+/***** Section private alumni section *****/  
+.alumni-recommend-section::-webkit-scrollbar{
+  display: none;
+}
+/***** End Section private alumni section *****/
+
+/***** Section profile *****/  
+.tooltip-clip-path{
+clip-path: polygon(11% 47%, 11% 21%, 100% 20%, 100% 80%, 12% 80%, 12% 56%, 0% 50%);
+}
+/***** End Section profile *****/
+
+/*****  smart recommendation section *****/  
+.glitter-star {
+  color: #fff; /* soft gold */
+  animation: glitter 2.5s ease-in-out infinite;
+  text-shadow:
+    0 0 4px rgba(255, 255, 255, 0.6),
+    0 0 8px rgba(255, 255, 255, 0.4),
+    0 0 12px rgba(255, 255, 255, 0.2);
+}
+
+@keyframes glitter {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(0.2);
+    -webkit-transform: scale(0.2);
+    -moz-transform: scale(0.2);
+    -ms-transform: scale(0.2);
+    -o-transform: scale(0.2);
+}
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+/***** End  smart recommendation section *****/
+
+
+
+
 
 
 /* 
