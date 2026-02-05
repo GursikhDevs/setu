@@ -1,8 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import { GoogleGenAI } from "@google/genai";
 
+//!change the direct api key to env file
 const ai = new GoogleGenAI({
-  apiKey:`AIzaSyAoQziIl24N6dOvdCn2atX_JVimVX0F_Kc`,
+  // apiKey: import.meta.env.VITE_GEMINI_API_KEY,
+  apiKey: "AIzaSyAoQziIl24N6dOvdCn2atX_JVimVX0F_Kc"
 });
 
 const SYSTEM_PROMPT = `
@@ -24,7 +26,7 @@ Rules:
 - If issue not solvable, guide to support team
 `;
 
-export default function Chatbot() {
+const ChatBot = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -71,9 +73,9 @@ export default function Chatbot() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#1B887D] text-[#F9FAFB]">
+    <div className="min-h-screen  w-full flex flex-col bg-transparent text-theme-white">
       {/* Header */}
-      <div className="text-center py-5 bg-[#EA9D5A]">
+      <div className="text-center py-3 bg-secondary-color shadow-sm shadow-theme-white">
         <h1 className="text-4xl font-bold tracking-widest">SETU</h1>
         <p className="opacity-90 text-sm">
           Connecting You to the Right Help
@@ -83,7 +85,7 @@ export default function Chatbot() {
       {/* Chat Box */}
       <div
         ref={chatRef}
-        className="flex-1 overflow-y-auto px-6 md:px-[12%] py-8 flex flex-col gap-5 bg-[#1B887D]"
+        className="flex-1 overflow-y-auto px-6 md:px-[12%] py-3 flex flex-col gap-5 "
       >
         {messages.length === 0 && !loading && (
           <div className="text-center opacity-80 mt-10">
@@ -96,11 +98,11 @@ export default function Chatbot() {
         {messages.map((msg, i) => (
           <div
             key={i}
-            className={`max-w-[75%] px-5 py-4 rounded-2xl leading-relaxed
+            className={`max-w-[75%] px-4 text-sm md:py-3 md:px-5 md:text-base py-1 rounded-2xl leading-relaxed
               ${
                 msg.from === "user"
-                  ? "self-end bg-[#EA9D5A] text-white rounded-br-md"
-                  : "self-start bg-[#1B887D] text-[#F9FAFB] rounded-bl-md"
+                  ? "self-end bg-secondary-color text-white-color rounded-br-md"
+                  : "self-start bg-forest-green-600 text-white-color rounded-bl-md"
               }`}
           >
             {msg.text}
@@ -108,24 +110,24 @@ export default function Chatbot() {
         ))}
 
         {loading && (
-          <div className="self-start bg-[#1B887D] p-4 rounded-2xl">
-            <div className="w-16 h-16 border-4 border-[#EA9D5A] border-t-transparent rounded-full animate-spin mx-auto"></div>
+          <div className="self-start bg-forest-green-600 p-4 rounded-2xl">
+            <div className="w-5 h-5 border-2 border-secondary-color border-t-transparent rounded-full animate-spin mx-auto"></div>
           </div>
         )}
       </div>
 
       {/* Input Area */}
-      <div className="flex gap-4 px-6 md:px-[12%] py-5 border-t border-white/20 bg-[#1B887D]">
+      <div className="flex gap-4 px-6 md:px-[12%] py-3 border-t border-theme-white opacity-90">
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && sendMessage()}
           placeholder="Type your question here..."
-          className="flex-1 px-4 py-3 rounded-lg bg-transparent border border-white/30 text-[#F9FAFB] focus:outline-none focus:border-secondary-color"
+          className="flex-1 px-4 py-3 rounded-lg bg-transparent border border-theme-white opacity-80 focus:outline-none transition-all  focus:shadow-sm shadow-theme-white"
         />
         <button
           onClick={sendMessage}
-          className="px-6 py-3 rounded-lg font-bold bg-[#EA9D5A] text-white hover:opacity-90"
+          className="px-6 py-2 rounded-2xl font-bold bg-secondary-color text-white-color hover:opacity-90 hover:scale-105 transition-all active:scale-95"
         >
           Send
         </button>
@@ -133,3 +135,5 @@ export default function Chatbot() {
     </div>
   );
 }
+
+export default ChatBot
