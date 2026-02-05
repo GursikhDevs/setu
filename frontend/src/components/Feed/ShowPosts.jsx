@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import PostMapper from './showPosts/PostMapper';
 import axios from 'axios';
 
+const Pre_API_URL = import.meta.env.VITE_API_URL;
 const ShowPosts = () => {
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(1);
@@ -38,7 +39,7 @@ const ShowPosts = () => {
       // }
 
       // const data = await response.json();
-      const API=`http://localhost:3000/posts/feed?page=${pageNumber}&limit=10`
+      const API=`${Pre_API_URL}/posts/feed?page=${pageNumber}&limit=10`
       const res =await axios.get(API, {
     withCredentials: true 
 });

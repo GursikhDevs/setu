@@ -1,6 +1,7 @@
 //OM namah sivay
 import { create } from 'zustand';
 
+const Pre_API_URL = import.meta.env.VITE_API_URL;
 export const useMessageStore = create((set, get) => ({
   // State
   users: [],
@@ -20,7 +21,7 @@ export const useMessageStore = create((set, get) => ({
     set({ loading: true });
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/message/start/${targetUserId}`,
+        `${Pre_API_URL}/message/start/${targetUserId}`,
         {
           method: 'GET',
           credentials: 'include',

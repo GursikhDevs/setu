@@ -6,7 +6,7 @@ import axios from "axios";
 
 
 
-
+const Pre_API_URL = import.meta.env.VITE_API_URL;
 const Profile = () => {
   const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState(null);
@@ -24,10 +24,10 @@ const Profile = () => {
     const fetchProfile = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/profile/${user._id}`,
+          `${Pre_API_URL}/profile/${user._id}`,
           { withCredentials: true }
         );
-        console.log(res);
+        console.log(res.data);
         
         setProfileData(res.data);
         
@@ -62,6 +62,8 @@ const Profile = () => {
  
   const { user: ProfileUser, connectionsCount, posts } = profileData;
   const isOwner = true;
+  // console.log(ProfileUser);
+  
     return (
         <>
         {profileData&&(<div className="min-h-screen bg-black text-white p-4 md:p-8">
@@ -150,7 +152,7 @@ const Profile = () => {
               {posts.map((post) => (
   <div key={post._id} className="relative">
                   <img
-                    src={post.url}
+                    src={post.media.url}
                     className="rounded-2xl h-36 w-full object-cover"
                   />
 

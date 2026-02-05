@@ -4,7 +4,7 @@ import { persist } from 'zustand/middleware';
 
 //authStore.js handles the login state globally, so we can use authStore to check whether a user is logged in or not and show things accordingly
 //can import authStore anywhere to read or update the auth state
-
+const Pre_API_URL = import.meta.env.VITE_API_URL;
 export const useAuthStore = create(
   persist(
     (set, get) => ({
@@ -17,7 +17,7 @@ export const useAuthStore = create(
 register: async (data) => {
   try {
     const response = await axios.post(
-      "http://localhost:3000/auth/signup",
+      `${Pre_API_URL}/auth/signup`,
       data,
       {
         headers: {
@@ -46,7 +46,7 @@ register: async (data) => {
           //   credentials: 'include',
           // });
           const response = await axios.post(
-  "http://localhost:3000/auth/login",
+  `${Pre_API_URL}/auth/login`,
   data,
   {
     withCredentials: true, // ✅ THIS is credentials: 'include'

@@ -5,7 +5,7 @@ import { SiGmail } from "react-icons/si";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-
+const Pre_API_URL = import.meta.env.VITE_API_URL;
 const AlumniProfile = ({alumni}) => {
   const navigate=useNavigate();
   console.log(alumni);
@@ -16,7 +16,7 @@ const AlumniProfile = ({alumni}) => {
   }
   const handleSendMessage =async()=>{
 try{
-  const API=`http://localhost:3000/chat/start/${alumni.user._id}`
+  const API=`${Pre_API_URL}/chat/start/${alumni.user._id}`
 const res=await axios.post(API,null,{
     withCredentials: true // Include this in the config object
   });

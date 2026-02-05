@@ -3,6 +3,7 @@ import { MiniModal } from "../../ui/MiniModal";
 import { BsEmojiSunglasses } from "react-icons/bs";
 import axios from 'axios';
 
+const Pre_API_URL = import.meta.env.VITE_API_URL;
 const CreateTextPost = () => {
 
   const [caption, setCaption] = useState("")
@@ -32,7 +33,7 @@ const CreateTextPost = () => {
       // });
 
       // const data = await res.json();
-      const API= `http://localhost:3000/posts/createPost`;
+      const API= `${Pre_API_URL}/posts/createPost`;
       const res = await axios.post(API,formData, {
   withCredentials: true
 });

@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 
+const Pre_API_URL = import.meta.env.VITE_API_URL;
 const ChatSidebar = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -19,7 +20,7 @@ const activeRoomId = searchParams.get("roomId");
       setLoading(true);
       try {
         const res = await axios.get(
-          "http://localhost:3000/chat/everChated",
+          `${Pre_API_URL}/chat/everChated`,
           { withCredentials: true }
         );
 

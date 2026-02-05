@@ -5,6 +5,7 @@ import gsap from "gsap";
 import axios from "axios";
 import SearchResults from './search/SearchResults';
 
+const Pre_API_URL = import.meta.env.VITE_API_URL;
 const Search = () => {
   const [status, setStatus] = useState('empty'); // 'empty', 'searching', 'searched', 'error'
   const [input, setInput] = useState("");
@@ -67,7 +68,7 @@ const Search = () => {
       setError(null);
 
       const res = await axios.post(
-        "http://localhost:3000/search/searchBar",
+        `${Pre_API_URL}/search/searchBar`,
         { query: query.trim() },
         { withCredentials: true }
       );

@@ -3,6 +3,7 @@ import gsap from "gsap";
 import {useLocation} from 'react-router-dom';
 import axios from 'axios';
 
+const Pre_API_URL = import.meta.env.VITE_API_URL;
 const SmartCards = () => {
   const [status, setStatus] = useState("processing");
   const [alumniData, setAlumniData] = useState([]);
@@ -40,7 +41,7 @@ const SmartCards = () => {
         // }
 
         // const data = await response.json();
-        const API=`http://localhost:3000/suggestion/smartAlumniSuggestion`;
+        const API=`${Pre_API_URL}/suggestion/smartAlumniSuggestion`;
         const res=await axios.get(API,{
           withCredentials:true
         });

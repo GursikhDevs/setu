@@ -169,8 +169,9 @@
 
 import axios from "axios";
 
+const Pre_API_URL = import.meta.env.VITE_API_URL;
 // const API_URL = "http://localhost:3000/suggestion/publicAlumni?page=1&limit=10";
-const API_URL = "http://localhost:3000/suggestion/suggestAlumni?page=1&limit=10";
+const API_URL = `${Pre_API_URL}/suggestion/suggestAlumni?page=1&limit=10`;
 // http://localhost:3000/suggestion/suggestAlumni?page=1&limit=10
 export const fetchSuggestedAlumni = async () => {
   const res = await axios.get(API_URL,{withCredentials: true});

@@ -1,4 +1,106 @@
 // //OM namah sivay
+import React, { useEffect, useRef, useState } from 'react';
+// import { useSocket } from '../../hooks/useSocket';
+import MessageBubble from './MessageBubble';
+
+const ChatBox = ({ previousMessage = [], actualRoomId,socket, isConnected }) => {
+  // const { socket, isConnected } = useSocket();
+// console.log("ChatBox socket id:", socket?.id);
+
+
+  const [messages, setMessages] = useState([]);
+  const [messageText, setMessageText] = useState('');
+  const messagesEndRef = useRef(null);
+
+  // ✅ Load previous messages when they ARRIVE
+  useEffect(() => {
+    if (!actualRoomId) return;
+
+    // if (
+    //   Array.isArray(previousMessage) &&
+    //   previousMessage.length > 0 &&
+    //   messages.length === 0
+    // )
+      if (Array.isArray(previousMessage)){
+      setMessages(previousMessage);
+    }
+  }, [actualRoomId, previousMessage]);
+
+  // ✅ Listen for socket messages
+  useEffect(() => {
+    if (!socket || !actualRoomId) return;
+
+    const handleNewMessage = (message) => {
+//       console.log("SOCKET MESSAGE:", message);
+// console.log("ROOM FROM SOCKET:", message.room);
+// console.log("ACTUAL ROOM:", actualRoomId);
+
+      if (String(message.room) === String(actualRoomId)) {
+        setMessages((prev) => [...prev, message]);
+      }
+    };
+
+    socket.on('message:new', handleNewMessage);
+    return () => socket.off('message:new', handleNewMessage);
+  }, [socket, actualRoomId]);
+
+  // ✅ Auto scroll
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  // ✅ Send message
+  const handleSend = () => {
+    if (!messageText.trim() || !socket || !actualRoomId) return;
+
+    socket.emit('sendMessage', {
+      roomId: actualRoomId,
+      text: messageText.trim(),
+    });
+
+    setMessageText('');
+  };
+
+  return (
+    <div className="flex-1 flex flex-col bg-black">
+      <div className="flex-1 overflow-y-auto p-6">
+        {messages.length === 0 ? (
+          <p className="text-gray-400 text-center mt-20">
+            No messages yet. Start the conversation 👋
+          </p>
+        ) : (
+          messages.map((msg) => (
+            <MessageBubble key={msg._id} message={msg} />
+          ))
+        )}
+        <div ref={messagesEndRef} />
+      </div>
+
+      <div className="border-t border-gray-800 px-6 py-4">
+        <div className="flex gap-3">
+          <input
+            value={messageText}
+            onChange={(e) => setMessageText(e.target.value)}
+            placeholder="Type a message..."
+            className="flex-1 px-4 py-3 bg-gray-900 text-white rounded-full"
+            disabled={!isConnected}
+          />
+          <button
+            onClick={handleSend}
+            disabled={!isConnected || !messageText.trim()}
+            className="bg-blue-600 px-6 py-3 rounded-full text-white disabled:opacity-50"
+          >
+            Send
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ChatBox;
+
+
 // import React, { useState, useEffect, useRef } from 'react';
 // import { useMessageStore } from '../../store/messageStore';
 // import { useSocket } from '../../hooks/useSocket';
@@ -153,104 +255,3 @@
 // export default ChatBox;
 
 // OM namah sivay
-import React, { useEffect, useRef, useState } from 'react';
-// import { useSocket } from '../../hooks/useSocket';
-import MessageBubble from './MessageBubble';
-
-const ChatBox = ({ previousMessage = [], actualRoomId,socket, isConnected }) => {
-  // const { socket, isConnected } = useSocket();
-// console.log("ChatBox socket id:", socket?.id);
-
-
-  const [messages, setMessages] = useState([]);
-  const [messageText, setMessageText] = useState('');
-  const messagesEndRef = useRef(null);
-
-  // ✅ Load previous messages when they ARRIVE
-  useEffect(() => {
-    if (!actualRoomId) return;
-
-    // if (
-    //   Array.isArray(previousMessage) &&
-    //   previousMessage.length > 0 &&
-    //   messages.length === 0
-    // )
-      if (Array.isArray(previousMessage)){
-      setMessages(previousMessage);
-    }
-  }, [actualRoomId, previousMessage]);
-
-  // ✅ Listen for socket messages
-  useEffect(() => {
-    if (!socket || !actualRoomId) return;
-
-    const handleNewMessage = (message) => {
-//       console.log("SOCKET MESSAGE:", message);
-// console.log("ROOM FROM SOCKET:", message.room);
-// console.log("ACTUAL ROOM:", actualRoomId);
-
-      if (String(message.room) === String(actualRoomId)) {
-        setMessages((prev) => [...prev, message]);
-      }
-    };
-
-    socket.on('message:new', handleNewMessage);
-    return () => socket.off('message:new', handleNewMessage);
-  }, [socket, actualRoomId]);
-
-  // ✅ Auto scroll
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
-
-  // ✅ Send message
-  const handleSend = () => {
-    if (!messageText.trim() || !socket || !actualRoomId) return;
-
-    socket.emit('sendMessage', {
-      roomId: actualRoomId,
-      text: messageText.trim(),
-    });
-
-    setMessageText('');
-  };
-
-  return (
-    <div className="flex-1 flex flex-col bg-black">
-      <div className="flex-1 overflow-y-auto p-6">
-        {messages.length === 0 ? (
-          <p className="text-gray-400 text-center mt-20">
-            No messages yet. Start the conversation 👋
-          </p>
-        ) : (
-          messages.map((msg) => (
-            <MessageBubble key={msg._id} message={msg} />
-          ))
-        )}
-        <div ref={messagesEndRef} />
-      </div>
-
-      <div className="border-t border-gray-800 px-6 py-4">
-        <div className="flex gap-3">
-          <input
-            value={messageText}
-            onChange={(e) => setMessageText(e.target.value)}
-            placeholder="Type a message..."
-            className="flex-1 px-4 py-3 bg-gray-900 text-white rounded-full"
-            disabled={!isConnected}
-          />
-          <button
-            onClick={handleSend}
-            disabled={!isConnected || !messageText.trim()}
-            className="bg-blue-600 px-6 py-3 rounded-full text-white disabled:opacity-50"
-          >
-            Send
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default ChatBox;
-

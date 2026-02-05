@@ -5,6 +5,7 @@ import AlumniProfile from './AlumniProfile';
 import {fetchSuggestedAlumni} from '../../data/alumniDummyData';
 import axios from 'axios';
 
+const Pre_API_URL = import.meta.env.VITE_API_URL;
 const AlumniSuggestionCard = () => {
   const [alumniUsers,setAlumniUsers]=useState("");
 
@@ -38,7 +39,7 @@ const AlumniSuggestionCard = () => {
   const sendConnectRequest = async(e,Otherid)=>{
     e.stopPropagation();
     console.log(Otherid);
-    const API=`http://localhost:3000/connection/makeconnection/${Otherid}`
+    const API=`${Pre_API_URL}/connection/makeconnection/${Otherid}`
     try{
 const res = await axios.get(API,{
     withCredentials: true 
