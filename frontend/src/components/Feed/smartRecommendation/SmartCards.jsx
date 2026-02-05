@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import gsap from "gsap";
 import {useLocation} from 'react-router-dom';
+import axios from 'axios';
 
 const SmartCards = () => {
   const [status, setStatus] = useState("processing");
@@ -23,26 +24,35 @@ const SmartCards = () => {
         // OR get userId if you're using that instead
         // const userId = localStorage.getItem('userId');
 
-        const response = await fetch('YOUR_API_ENDPOINT_HERE/api/recommendations', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            // Send authentication token
-            'Authorization': `Bearer ${token}`,
-            // OR if your API uses a different auth method:
-            // 'X-User-Id': userId,
-          },
+        // const response = await fetch('http://localhost:3000/suggestion/smartAlumniSuggestion', {
+        //   method: 'GET',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //     // Send authentication token
+        //     'Authorization': `Bearer ${token}`,
+        //     // OR if your API uses a different auth method:
+        //     // 'X-User-Id': userId,
+        //   },
+        // });
+
+        // if (!response.ok) {
+        //   throw new Error(`HTTP error! status: ${response.status}`);
+        // }
+
+        // const data = await response.json();
+        const API=`http://localhost:3000/suggestion/smartAlumniSuggestion`;
+        const res=await axios.get(API,{
+          withCredentials:true
         });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
+        // console.log("smartRecomendKaData: ",res);
+        
+        const data=res.data;
+        // console.log(data);
+        
         
         // Assuming your API returns data in format: { recommendations: [...] }
         // Adjust based on your actual API response structure
-        setAlumniData(data.recommendations || data);
+        setAlumniData(data.recommendations ||data.suggestions ||data);
         
         // Add a small delay for better UX (optional)
         setTimeout(() => {
@@ -262,7 +272,7 @@ const SmartCards = () => {
         >
           {alumniData.map((alumni, i) => (
             <div
-              key={alumni.id || alumni.name}
+              key={alumni.id || alumni.user._id}
               ref={(el) => (cardsRef.current[i] = el)}
               className="w-55 h-80 rounded-2xl bg-linear-to-br from-[#1a6b47]/95 to-[#124a33]/95 backdrop-blur-sm text-green-50 p-6 shadow-2xl flex flex-col border border-green-400/30 hover:border-green-400/60 transition-all duration-300 hover:shadow-green-500/20 cursor-pointer group relative overflow-hidden"
             >
@@ -273,8 +283,8 @@ const SmartCards = () => {
                   <div className="w-full h-full rounded-full overflow-hidden bg-linear-to-br from-green-400/40 to-green-600/40 flex items-center justify-center text-3xl border-2 border-green-400/40 group-hover:border-green-400/70 group-hover:scale-110 transition-all duration-300 shadow-lg">
                     <img 
                       className='object-cover w-full h-full' 
-                      src={alumni.profileImg || alumni.profile_image || "/images/default-avatar.jpg"} 
-                      alt={`${alumni.name} profile`}
+                      src={alumni.user.profileImg || alumni.profile_image || "/images/default-avatar.jpg"} 
+                      alt={`${alumni.user.userName} profile`}
                       onError={(e) => {
                         e.target.src = "/images/default-avatar.jpg";
                       }}
@@ -286,16 +296,16 @@ const SmartCards = () => {
                 </div>
 
                 <h3 className="text-xl font-bold text-green-50 leading-tight mb-1">
-                  {alumni.name}
+                  {alumni.user.userName}
                 </h3>
-                <p className="text-sm text-green-200/70 mb-4">{alumni.role}</p>
+                <p className="text-sm text-green-200/70 mb-4">{alumni.jobTitle}</p>
 
                 <div className="w-full h-px bg-linear-to-r from-transparent via-green-400/30 to-transparent mb-4" />
 
                 <div className="mt-auto">
                   <div className="flex items-baseline gap-2 mb-3">
                     <span className="text-3xl font-bold text-green-300">
-                      {alumni.match || alumni.matchScore || 0}%
+                      {alumni.match || alumni.score || 0}%
                     </span>
                     <span className="text-sm text-green-200/60">Match Score</span>
                   </div>
@@ -304,7 +314,7 @@ const SmartCards = () => {
                     <div
                       className="h-full bg-linear-to-r from-green-400 via-emerald-400 to-green-500 rounded-full transition-all duration-1000 ease-out shadow-lg shadow-green-400/50"
                       style={{
-                        width: status === "done" ? `${alumni.match || alumni.matchScore || 0}%` : "0%",
+                        width: status === "done" ? `${alumni.match || alumni.score || 0}%` : "0%",
                         transitionDelay: `${i * 0.15 + 0.8}s`,
                       }}
                     />

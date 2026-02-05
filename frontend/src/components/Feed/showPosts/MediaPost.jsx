@@ -52,13 +52,14 @@ const MediaPost = ({ post }) => {
       <div className="w-full h-fit p-3 md:px-6 pb-0 ">
         <div className="flex items-center gap-4 mb-1 border-b border-gray-300 pb-2">
           <img
-            src={post?.author?.profileImage || '/images/empty-user.webp'}
-            alt={post?.author?.name || 'User'}
+            src={post?.author?.profileImage ||post?.author?.profileImg|| '/images/empty-user.webp'}
+            alt={post?.author?.name ||post?.author?.userName|| 'User'
+}
             className="w-12 h-12 rounded-full object-cover ring-2 ring-slate-100"
           />
           <div className="flex flex-col min-w-0">
             <h3 className="font-semibold text-base truncate">
-              {post?.author?.name || 'Anonymous'}
+              {post?.author?.name||post?.author?.userName || 'Anonymous'}
             </h3>
             <time className="text-sm opacity-80">
               {formatTime(post?.createdAt || new Date())}

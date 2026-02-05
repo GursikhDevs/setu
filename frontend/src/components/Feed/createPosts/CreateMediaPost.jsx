@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone"
 import { MiniModal } from "../../ui/MiniModal";
 import { BsEmojiSunglasses } from "react-icons/bs";
+import axios from 'axios';
 
 const CreateMediaPost = () => {
 
@@ -52,18 +53,29 @@ const CreateMediaPost = () => {
 
     if(media.length > 0){
       formData.append("visibility", visibility)
-      formData.append("caption", caption)
+      formData.append("text", caption)
       formData.append("media", media[0].file)
       console.log("formData:" + formData)
     }
 
     try{
-      const res = await fetch("https://api.restful-api.dev/objects", {
-        method: "POST",
-        body: formData
-      });
+      // const res = await fetch("http://localhost:3000/posts/createPost", {
+      //   method: "POST",
+      //   body: formData
+      // });
 
-      const data = await res.json();
+      // const data = await res.json(); 
+//        const API= `http://localhost:3000/posts/createPost`;
+//       const res = await axios.post(API,formData, {
+//   withCredentials: true,headers: {
+//           'Content-Type': 'multipart/form-data' 
+//         }
+// });
+  const API= `http://localhost:3000/posts/createPost`;
+      const res = await axios.post(API,formData, {
+  withCredentials: true
+});
+      const data= res.data;
       setCreatePost(true)
       console.log("Post created: ", data)
 
@@ -81,7 +93,7 @@ const CreateMediaPost = () => {
 
   const toggleVisibility =()=>{
     if(visibility === "public"){
-      setVisibility("private")
+      setVisibility("connections")
       return
     }
     setVisibility("public")

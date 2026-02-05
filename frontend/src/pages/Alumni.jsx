@@ -24,6 +24,8 @@ const Alumni = () => {
     fetchRandomAlumni()
       .then(data => {
         setAlumniList(data)
+        console.log(data);
+        
       })
       .catch(() => {
         setError(true)
@@ -62,7 +64,7 @@ const Alumni = () => {
 
         {/*Data */}
         {!loading && !error && alumniList.map(alumni => (
-          <AlumniCard key={alumni.id} alumni={alumni} alumniRef={alumniRef}/>
+          <AlumniCard key={alumni._id} alumni={alumni} alumniRef={alumniRef}/>
         ))}
 
       </div>

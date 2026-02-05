@@ -3,6 +3,8 @@ import { IoClose } from "react-icons/io5";
 import UserCard from './UserCard';
 
 const SearchResults = ({ results, onClear }) => {
+  console.log(results);
+  
   if (!results || results.length === 0) {
     return null;
   }
@@ -34,7 +36,7 @@ const SearchResults = ({ results, onClear }) => {
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
           {results.map((user, index) => (
             <UserCard 
-              key={user.id || user._id || user.username || index} 
+              key={user.id || user._id || user.userName || index} 
               user={user}
               index={index}
             />

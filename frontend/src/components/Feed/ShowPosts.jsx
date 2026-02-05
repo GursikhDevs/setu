@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import PostMapper from './showPosts/PostMapper';
+import axios from 'axios';
 
 const ShowPosts = () => {
   const [posts, setPosts] = useState([]);
@@ -19,27 +20,36 @@ const ShowPosts = () => {
     
     try {
       // Replace with actual API endpoint
-      const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/posts?page=${pageNumber}&limit=10`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            // Add authorization header if needed
-            // 'Authorization': `Bearer ${yourAuthToken}`
-          },
-        }
-      );
+      // ${process.env.REACT_APP_API_URL}/posts?page=${pageNumber}&limit=10
+      // const response = await fetch(
+      //   `http://localhost:3000/posts/feed?page=${pageNumber}&limit=10`,
+      //   {
+      //     method: 'GET',
+      //     headers: {
+      //       'Content-Type': 'application/json',
+      //       // Add authorization header if needed
+      //       // 'Authorization': `Bearer ${yourAuthToken}`
+      //     },
+      //   }
+      // );
 
-      if (!response.ok) {
-        throw new Error('Failed to fetch posts');
-      }
+      // if (!response.ok) {
+      //   throw new Error('Failed to fetch posts');
+      // }
 
-      const data = await response.json();
+      // const data = await response.json();
+      const API=`http://localhost:3000/posts/feed?page=${pageNumber}&limit=10`
+      const res =await axios.get(API, {
+    withCredentials: true 
+});
+console.log(res);
+const data=res.data;
+
       
       // Adjust based on API response structure
-      const newPosts = data.posts || data.data || data;
-      const totalPages = data.totalPages || data.pagination?.totalPages;
+      const newPosts = data.posts || data.data.posts || data;
+      const totalPages = data.total || data.hasNextPage
+?.totalPages;
       
       setPosts(prev => [...prev, ...newPosts]);
       setHasMore(pageNumber < totalPages);

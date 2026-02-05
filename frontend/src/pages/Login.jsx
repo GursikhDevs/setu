@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { RxCross1 } from "react-icons/rx";
+import { useAuthStore } from "../store/authStore.js";
 
 // Simulated Zustand store (in real app, this would be in a separate file)
-const useAuthStore = {
-  login: (data) => {
-    console.log('Logging in user:', data);
-    // Here you would call your API
-    return { success: true, user: data };
-  },
-  loginWithGoogle: () => {
-    console.log('Login with Google');
-  },
-  loginWithLinkedIn: () => {
-    console.log('Login with LinkedIn');
-  }
-};
+// const useAuthStore = {
+//   login: (data) => {
+//     // console.log('Logging in user:', data);
+//     // Here you would call your API
+//     return { success: true, user: data };
+//   },
+//   loginWithGoogle: () => {
+//     console.log('Login with Google');
+//   },
+//   loginWithLinkedIn: () => {
+//     console.log('Login with LinkedIn');
+//   }
+// };
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -30,35 +30,63 @@ function LoginPage() {
     { value: 'admin', label: 'Admin', icon: '⚙️' }
   ];
 
-  const onSubmit = async (data) => {
-    setIsLoading(true);
+  // const onSubmit = async (data) => {
+  //   setIsLoading(true);
     
-    // Simulate API call
-    setTimeout(() => {
-      try {
-        const result = useAuthStore.login(data);
+  //   // Simulate API call
+  //   setTimeout(() => {
+  //     try {
+  //       const result = useAuthStore.login(data);
         
-        if (result.success) {
-          alert('Login successful! Check console for data.');
-          console.log('Logged in user:', result.user);
-          // In real app: navigate('/dashboard')
-          navigate('/feed')
-        } else {
-          setError('email', { 
-            type: 'manual', 
-            message: 'Invalid credentials' 
-          });
-        }
-      } catch (error) {
-        setError('email', { 
-          type: 'manual', 
-          message: 'Login failed. Please try again.' 
-        });
-      } finally {
-        setIsLoading(false);
-      }
-    }, 1000);
-  };
+  //       if (result.success) {
+  //         alert('Login successful! Check console for data.');
+  //         console.log('Logged in user:', result.user);
+  //         // In real app: navigate('/dashboard')
+  //         navigate('/feed')
+  //       } else {
+  //         setError('email', { 
+  //           type: 'manual', 
+  //           message: 'Invalid credentials' 
+  //         });
+  //       }
+  //     } catch (error) {
+  //       setError('email', { 
+  //         type: 'manual', 
+  //         message: 'Login failed. Please try again.' 
+  //       });
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   }, 1000);
+  // };
+  const { login } = useAuthStore();
+
+const onSubmit = async (data) => {
+  try {
+    setIsLoading(true);
+
+    console.log("Submitting login:", data);
+
+    await login({
+      email: data.email,
+      password: data.password,
+    });
+
+    console.log("Login API success");
+    navigate("/feed");
+
+  } catch (error) {
+    console.error("Login failed:", error);
+
+    setError("email", {
+      type: "manual",
+      message: "Invalid email or password",
+    });
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   const handleGoogleLogin = () => {
     useAuthStore.loginWithGoogle();
@@ -75,8 +103,7 @@ function LoginPage() {
   };
 
   return (
-    <div className="min-h-dvh bg-main-color  flex items-center justify-center p-1 relative overflow-hidden">
-
+    <div className="min-h-dvh[100] bg-main-color  flex items-center justify-center p-1 relative overflow-hidden">
       {/* Animated Background Shapes with Clip Paths */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div 
@@ -113,17 +140,6 @@ function LoginPage() {
       </div>
 
       <div className="relative w-full max-w-4xl">
-        <RxCross1
-          className="absolute right-6 top-5 cursor-pointer z-99 text-white text-2xl hover:scale-110 active:scale-95"
-          onClick={() => {
-            if (window.history.length > 1) {
-              navigate(-1);
-            } else {
-              navigate("/"); 
-            }
-          }}
-        />
-        
         <div className="bg-white-color rounded-3xl shadow-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2">
           
           {/* Left Side - Form (Opposite of Register) */}

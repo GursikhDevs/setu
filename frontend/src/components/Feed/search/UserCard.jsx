@@ -50,12 +50,12 @@ const UserCard = ({ user, index }) => {
                   className='w-full h-full object-cover'
                   onError={(e) => {
                     e.target.style.display = 'none';
-                    e.target.parentElement.innerHTML = `<span class="text-2xl font-bold text-green-300">${(user.name || user.username || 'U')[0].toUpperCase()}</span>`;
+                    e.target.parentElement.innerHTML = `<span class="text-2xl font-bold text-green-300">${(user.name || user.userName || 'U')[0].toUpperCase()}</span>`;
                   }}
                 />
               ) : (
                 <span className='text-2xl font-bold text-green-300'>
-                  {(user.name || user.username || 'U')[0].toUpperCase()}
+                  {(user.name || user.userName || 'U')[0].toUpperCase()}
                 </span>
               )}
             </div>
@@ -71,10 +71,10 @@ const UserCard = ({ user, index }) => {
           {/* Name and Username */}
           <div className='flex-1 min-w-0'>
             <h3 className='text-lg font-bold text-green-50 truncate group-hover:text-green-300 transition-colors mb-1'>
-              {user.name || 'Unknown User'}
+              {user.userName || 'Unknown User'}
             </h3>
             <p className='text-sm text-green-300/60 truncate'>
-              @{user.username || user.handle || 'username'}
+              @{user.userName || user.handle || 'username'}
             </p>
           </div>
         </div>
@@ -95,7 +95,7 @@ const UserCard = ({ user, index }) => {
               <svg className='w-4 h-4 text-green-400/60 shrink-0' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
                 <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253' />
               </svg>
-              <span>Batch {user.batch}</span>
+              <span>Batch {2025-user.yearsOfExperience}</span>
             </div>
           )}
 
