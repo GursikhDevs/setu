@@ -70,7 +70,8 @@ const Profile = () => {
   if (!profileData) return null;
 
  
-  const { user: ProfileUser, connectionsCount, posts } = profileData;
+  const { user: profileUser, connectionsCount, posts } = profileData;
+  
   const isOwner = true;
   // console.log(ProfileUser);
   
