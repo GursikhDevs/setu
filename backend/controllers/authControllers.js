@@ -71,12 +71,18 @@ export const login = async (req, res) => {
     console.log(token);
     
 
-    res.cookie("access_token", token, {
-      httpOnly: true,
+  //   res.cookie("access_token", token, {
+  //     httpOnly: true,
+  // maxAge: 24 * 60 * 60 * 1000,
+  // sameSite: "lax",
+  // secure: false,
+  //   });
+  res.cookie("access_token", token, {
+  httpOnly: true,
+  secure: true,            // REQUIRED on HTTPS (Render/Vercel)
+  sameSite: "none",        // REQUIRED for cross-site cookies
   maxAge: 24 * 60 * 60 * 1000,
-  sameSite: "lax",
-  secure: false,
-    });
+});
 
     res.json({
       message: "Login successful",
@@ -97,7 +103,7 @@ export const login = async (req, res) => {
 };
 
 export const logout = (req, res) => {
-  res.clearCookie("token");
+  res.clearCookie("access_token");
   res.json({ message: "Logout successful" });
 };
 
