@@ -175,7 +175,7 @@ const Profile = () => {
               {posts.map((post) => (
                 <div key={post._id} className="relative">
                   <img
-                    src={post.url}
+                    src={post.media.url}
                     className="rounded-2xl h-36 w-full object-cover"
                   />
 
