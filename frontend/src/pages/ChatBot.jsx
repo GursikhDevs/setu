@@ -4,7 +4,7 @@ import { GoogleGenAI } from "@google/genai";
 //!change the direct api key to env file
 const ai = new GoogleGenAI({
   // apiKey: import.meta.env.VITE_GEMINI_API_KEY,
-  apiKey: "AIzaSyAoQziIl24N6dOvdCn2atX_JVimVX0F_Kc"
+  apiKey: "AIzaSyDAtRZcnHbZkZEjXYLtaUm4MbmQZ3VfwQQ"
 });
 
 const SYSTEM_PROMPT = `

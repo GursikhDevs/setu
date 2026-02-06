@@ -37,9 +37,9 @@ const DevCards = () => {
           {/* LEFT PERSON */}
           <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="flex flex-col items-center justify-center text-md">
             <h5 className="flex gap-1 items-center justify-center py-2">{pair.left.name} – {pair.left.role}</h5>
-            <div className="dev-clip1 w-70 mb-2 relative">
+            <div className="dev-clip1 w-70 h-65 mb-2 relative flex justify-center align-center">
               <img
-                className="object-cover w-full z-9"
+                className="object-cover w-full h-auto z-9"
                 src={pair.left.image}
                 alt={pair.left.name}
               />
@@ -54,9 +54,9 @@ const DevCards = () => {
 
           {/* RIGHT PERSON */}
           <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="flex flex-col items-center justify-center text-md">
-            <div className="dev-clip2 w-70 -mt-2 relative">
+            <div className="dev-clip2 w-70 h-65 -mt-2 relative flex justify-center align-center">
               <img
-                className="object-cover w-full"
+                className="object-cover h-auto w-full"
                 src={pair.right.image}
                 alt={pair.right.name}
               />
