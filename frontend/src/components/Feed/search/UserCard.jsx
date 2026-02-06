@@ -1,7 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const UserCard = ({ user, index }) => {
+  const Pre_API_URL = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
 
   const handleViewProfile = () => {
@@ -15,10 +17,27 @@ const UserCard = ({ user, index }) => {
     console.log('Connect with:', user.name);
   };
 
-  const handleMessage = (e) => {
-    e.stopPropagation();
+  const handleMessage =async (e) => {
+    // e.stopPropagation();
     // Add message functionality
-    console.log('Message:', user.name);
+    console.log('Message:', user._id);
+    try{
+  const API=`${Pre_API_URL}/chat/start/${user._id}`
+const res=await axios.post(API,null,{
+    withCredentials: true // Include this in the config object
+  });
+  // console.log(res);
+  const params={
+    secondPersonId:user._id,
+    roomId:res.data.roomId
+  }
+  const queryString = new URLSearchParams(params).toString();
+  navigate(`/feed/messages?${queryString}`);
+
+}catch(err){
+  console.log(err);
+  
+}
   };
 
   return (
@@ -149,7 +168,7 @@ const UserCard = ({ user, index }) => {
           </button>
           
           <button
-            onClick={handleMessage}
+            onClick={()=>handleMessage}
             className='p-2.5 rounded-lg bg-green-500/20 hover:bg-green-500/30 text-green-300 transition-all duration-200 group-hover:shadow-lg group-hover:shadow-green-500/20'
             title='Send Message'
           >
