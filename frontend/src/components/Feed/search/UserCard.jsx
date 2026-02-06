@@ -18,7 +18,7 @@ const UserCard = ({ user, index }) => {
   };
 
   const handleMessage =async (e) => {
-    // e.stopPropagation();
+    e.stopPropagation();
     // Add message functionality
     console.log('Message:', user._id);
     try{
@@ -168,7 +168,7 @@ const res=await axios.post(API,null,{
           </button>
           
           <button
-            onClick={()=>handleMessage}
+            onClick={handleMessage}
             className='p-2.5 rounded-lg bg-green-500/20 hover:bg-green-500/30 text-green-300 transition-all duration-200 group-hover:shadow-lg group-hover:shadow-green-500/20'
             title='Send Message'
           >
