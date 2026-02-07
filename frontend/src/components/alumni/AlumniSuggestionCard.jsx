@@ -61,8 +61,8 @@ console.log(res);
       alumniUsers&&(
         alumniUsers.map((user, index)=> (
           <div  key={index}  className='w-[90%] h-fit grid grid-cols-[1fr_2fr] grid-rows-1 gap-1 overflow-hidden p-2 border-2 border-white-color rounded-xl shrink-0'>
-              <div onClick={() => handleAlumniProfileClick(user)} className='py-1 w-5  h-5 flex items-center'>
-                <img className=' w-full position-center object-cover rounded-full' src={user.user.profileImg} alt={user.user.userName} />
+              <div onClick={() => handleAlumniProfileClick(user)} className='py-1 flex items-center'>
+                <img className=' w-full object-cover rounded-full' src={user.user.profileImg} alt={user.user.userName} />
               </div>
               <div className='text-center px-2'>
                 <h3 className='text-sm font-semibold '>{user.user.userName}</h3>
