@@ -21,7 +21,7 @@ const MessageBubble = ({ message }) => {
   };
 
   return (
-    <div className={`flex items-start gap-3 mb-6 ${isMyMessage ? 'justify-end' : 'justify-start'}`}>
+    <div className={`flex items-start text-white-color gap-3 mb-6 ${isMyMessage ? 'justify-end' : 'justify-start'}`}>
       {!isMyMessage && (
         <img
           src={`https://ui-avatars.com/api/?name=User&background=4F46E5&color=fff`}
@@ -37,7 +37,7 @@ const MessageBubble = ({ message }) => {
             : 'bg-forest-green-600 rounded-bl-md'
         }`}
       >
-        <p className="text-sm leading-relaxed wrap-break-word">{message.text}</p>
+        <p className="text-sm text-white-color leading-relaxed wrap-break-word">{message.text}</p>
       </div>
     </div>
   );
