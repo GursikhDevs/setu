@@ -57,15 +57,14 @@ const ChatBox = ({ previousMessage = [], actualRoomId,socket, isConnected }) => 
       roomId: actualRoomId,
       text: messageText.trim(),
     });
-
     setMessageText('');
   };
 
   return (
-    <div className="flex-1 flex flex-col bg-black">
+    <div className="flex-1 flex flex-col border w-full">
       <div className="flex-1 overflow-y-auto p-6">
         {messages.length === 0 ? (
-          <p className="text-gray-400 text-center mt-20">
+          <p className="text-theme-white opacity-70 text-center mt-20">
             No messages yet. Start the conversation 👋
           </p>
         ) : (
@@ -76,19 +75,25 @@ const ChatBox = ({ previousMessage = [], actualRoomId,socket, isConnected }) => 
         <div ref={messagesEndRef} />
       </div>
 
-      <div className="border-t border-gray-800 px-6 py-4">
+      <div className="border-t border-theme-white opacity-60 px-6 py-4">
         <div className="flex gap-3">
           <input
             value={messageText}
             onChange={(e) => setMessageText(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && isConnected && messageText.trim()) {
+                e.preventDefault(); // prevents newline / default form submit
+                handleSend();
+              }
+            }}
             placeholder="Type a message..."
-            className="flex-1 px-4 py-3 bg-gray-900 text-white rounded-full"
+            className="flex-1 px-4 py-3 border-2 text-theme-white rounded-full hover:shadow-sm shadow-theme-white active:outline-none focus:outline-none"
             disabled={!isConnected}
           />
           <button
             onClick={handleSend}
             disabled={!isConnected || !messageText.trim()}
-            className="bg-blue-600 px-6 py-3 rounded-full text-white disabled:opacity-50"
+            className="bg-secondary-color px-6 py-3 rounded-full text-white-color disabled:opacity-50"
           >
             Send
           </button>

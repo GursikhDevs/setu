@@ -11,6 +11,7 @@ const AlumniSuggestionCard = () => {
 
   const [openAlumniProfile, setOpenAlumniProfile] =useState(null);
   const [selectedAlumni, setSelectedAlumni] = useState(null);
+  const [status, setStatus] = useState("connect")
 
   useEffect(()=>{
 
@@ -38,11 +39,12 @@ const AlumniSuggestionCard = () => {
 
   const sendConnectRequest = async(e,Otherid)=>{
     e.stopPropagation();
+    setStatus("pending")
     console.log(Otherid);
     const API=`${Pre_API_URL}/connection/makeconnection/${Otherid}`
     try{
-const res = await axios.get(API,{
-    withCredentials: true 
+    const res = await axios.get(API,{
+      withCredentials: true 
 });
 console.log(res);
 
@@ -59,14 +61,14 @@ console.log(res);
       alumniUsers&&(
         alumniUsers.map((user, index)=> (
           <div  key={index}  className='w-[90%] h-fit grid grid-cols-[1fr_2fr] grid-rows-1 gap-1 overflow-hidden p-2 border-2 border-white-color rounded-xl shrink-0'>
-              <div onClick={() => handleAlumniProfileClick(user)} className='py-1 flex items-center'>
-                <img className=' w-full object-cover rounded-full' src={user.user.profileImg} alt={user.user.userName} />
+              <div onClick={() => handleAlumniProfileClick(user)} className='py-1 w-5  h-5 flex items-center'>
+                <img className=' w-full position-center object-cover rounded-full' src={user.user.profileImg} alt={user.user.userName} />
               </div>
               <div className='text-center px-2'>
                 <h3 className='text-sm font-semibold '>{user.user.userName}</h3>
                 <h4 className='text-xs border-t'>{user.jobTitle}</h4>
                 <button onClick={(e)=>sendConnectRequest(e,user.user._id)} className='text-xs cursor-pointer bg-permanent-main-color px-3 py-1 rounded-2xl '>
-                  Connect+
+                  { status === "connect" ? "Connect+" : "Pending.."}
                 </button>
               </div>
         </div>

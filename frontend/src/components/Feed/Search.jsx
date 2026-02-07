@@ -23,7 +23,7 @@ const Search = () => {
       const tl = gsap.timeline();
 
       tl.to(searchContainerRef.current, {
-        y: '-25vh',
+        y: '-20vh',
         duration: 0.6,
         ease: 'power3.inOut',
       })

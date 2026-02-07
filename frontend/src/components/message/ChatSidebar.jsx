@@ -63,11 +63,11 @@ const activeRoomId = searchParams.get("roomId");
   );
 
   return (
-    <div className="w-full lg:w-80 bg-black flex flex-col border-r border-gray-800">
+    <div className="w-full lg:w-80 flex flex-col border-r text-theme-white">
       {/* Header */}
-      <div className="px-6 py-6 border-b border-gray-800">
-        <h2 className="text-2xl font-bold text-white">Messages</h2>
-        <p className="text-sm text-gray-400 mt-1">
+      <div className="px-6 py-4 border-b">
+        <h2 className="text-2xl font-bold">Messages</h2>
+        <p className="text-sm opacity-80 mt-1">
           Your recent conversations
         </p>
       </div>
@@ -80,7 +80,7 @@ const activeRoomId = searchParams.get("roomId");
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search conversations"
-            className="w-full px-4 py-3 bg-gray-800 text-white rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 pl-12"
+            className="w-full px-4 py-3 border border-white-color rounded-full focus:outline-none focus:ring-2 shadow-sm shadow-theme-white focus:ring-forest-green-600 pl-12"
           />
           <svg
             className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
@@ -105,7 +105,7 @@ const activeRoomId = searchParams.get("roomId");
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" />
           </div>
         ) : filteredUsers.length === 0 ? (
-          <div className="text-center text-gray-400 p-8">
+          <div className="text-center text-theme-white opacity-70 p-8">
             No conversations yet
           </div>
         ) : (
@@ -132,10 +132,10 @@ const activeRoomId = searchParams.get("roomId");
                 />
 
                 <div className="flex-1 min-w-0">
-                  <h4 className="font-semibold text-white truncate">
+                  <h4 className="font-semibold text-theme-white truncate">
                     {u.userName}
                   </h4>
-                  <p className="text-sm text-gray-400 truncate">
+                  <p className="text-sm text-theme-white opacity-89 truncate">
                     Click to open chat
                   </p>
                 </div>

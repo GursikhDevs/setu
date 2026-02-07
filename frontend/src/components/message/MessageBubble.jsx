@@ -31,10 +31,10 @@ const MessageBubble = ({ message }) => {
       )}
       
       <div
-        className={`max-w-xs lg:max-w-md px-5 py-3 rounded-3xl ${
+        className={`max-w-xs lg:max-w-md px-5 py-2 rounded-3xl ${
           isMyMessage
-            ? 'bg-blue-600 text-white rounded-br-md'
-            : 'bg-gray-800 text-white rounded-bl-md'
+            ? 'bg-secondary-color rounded-br-md'
+            : 'bg-forest-green-600 rounded-bl-md'
         }`}
       >
         <p className="text-sm leading-relaxed wrap-break-word">{message.text}</p>

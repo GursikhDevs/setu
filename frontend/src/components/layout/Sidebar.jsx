@@ -133,7 +133,7 @@ const Sidebar = () => {
           <img
             onClick={() => handleSidebarNavigate(SIDEBAR_ROUTES.userProfile)}
             className='rounded-4xl w-[80%] cursor-pointer'
-            src="/images/vi.jpg"
+            src="/images/empty.jpg"
             alt="profile image"
           />
         </Tooltip>

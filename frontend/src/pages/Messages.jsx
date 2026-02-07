@@ -45,8 +45,7 @@ const res=await axios.post(API,null,{
 },[socket, isConnected, roomId, secondPersonId]);
   
   return (
-    <div className="h-screen bg-black flex flex-col">
-      <Navbar />
+    <div className="h-screen w-full flex flex-col overflow-hidden">
       <div className="flex-1 flex overflow-hidden">
         <ChatSidebar />
         <ChatBox previousMessage={messages} actualRoomId={roomId}  socket={socket}

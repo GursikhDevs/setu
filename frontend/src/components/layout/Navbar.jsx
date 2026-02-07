@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import {useAuthStore} from "../../store/authStore";
+import {useNavigate, useNavigation} from "react-router-dom"
 
 export default function Navbar() {
+  const navigate = useNavigate();
+
    const isAuthenticated = useAuthStore(
     (state) => state.isAuthenticated
   );
@@ -33,9 +36,9 @@ export default function Navbar() {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-8">
-              <NavLink href="#home">Home</NavLink>
-              <NavLink href="#about">About</NavLink>
-              <NavLink href="#alumni">Alumni</NavLink>
+              <NavLink href="/">Home</NavLink>
+              <NavLink href="/about">About</NavLink>
+              <NavLink href="/alumni">Alumni</NavLink>
               {!isAuthenticated&&( <a 
                 href="/login" 
                 className="bg-secondary-color text-white-color hover:scale-105 px-6 py-2 rounded-md text-base font-medium transition-colors"
@@ -93,36 +96,44 @@ export default function Navbar() {
           {/* Navigation Links */}
           <div className="flex flex-col p-4 space-y-2">
             <a
-              href="#home"
+              href="/"
               className="text-gray-medium hover:bg-blue-50 hover:text-secondary-color px-4 py-3 rounded-md text-base font-medium transition-colors"
               onClick={toggleMenu}
             >
               Home
             </a>
             <a
-              href="#about"
+              href="/about"
               className="text-gray-medium hover:bg-blue-50 hover:text-secondary-color px-4 py-3 rounded-md text-base font-medium transition-colors"
               onClick={toggleMenu}
             >
               About
             </a>
             <a
-              href="#alumni"
+              href="/alumni"
               className="text-gray-medium hover:bg-blue-50 hover:text-secondary-color px-4 py-3 rounded-md text-base font-medium transition-colors"
               onClick={toggleMenu}
             >
               Alumni
             </a>
-            <a
-              href="#login"
-              className="bg-secondary-color text-white-color hover:bg-main-color px-4 py-3 rounded-md text-base font-medium text-center transition-colors mt-4"
-              onClick={toggleMenu}
-            >
-              Login
-            </a>
+            {!isAuthenticated&&( <a 
+                href="/login" 
+                className="bg-secondary-color text-white-color hover:scale-105 px-6 py-2 rounded-md text-base font-medium transition-colors"
+              >
+                Login
+              </a>)}
+              {isAuthenticated&&(<a 
+                href="/feed" 
+                className="bg-secondary-color text-white-color hover:scale-105 px-6 py-2 rounded-md text-base font-medium transition-colors"
+              >
+                Feed
+              </a>)}
           </div>
         </div>
       </div>
     </header>
   );
 }
+
+
+
